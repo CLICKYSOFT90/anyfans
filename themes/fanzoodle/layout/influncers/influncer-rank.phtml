@@ -1,0 +1,640 @@
+<div class="page-margin">
+    <div class="row">
+        <div class="col-md-2 leftcol"><?php echo Wo_LoadPage("sidebar/left-sidebar"); ?></div>
+        <div class="col-md-7 singlecol">
+            <div class="page-margin wow_content mt-0">
+                <div class="wo_page_hdng pag_neg_padd pag_alone">
+                    <div class="wo_page_hdng_innr big_size">
+                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path
+                                        fill="currentColor"
+                                        d="M22,16V4A2,2 0 0,0 20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16M11,12L13.03,14.71L16,11L20,16H8M2,6V20A2,2 0 0,0 4,22H18V20H4V6"></path></svg></span>
+                        Category:  <b> &nbsp;<?php echo $wo['influncer_info']['cat_name'] ?></b>
+                    </div>
+                </div>
+            </div>
+            <div class="page-margin wow_content">
+                <?php if (!empty($wo['influncer_info'])) { ?>
+                <div class="row info-box1 mb-15">
+                    <div class="col-md-2">
+                        <div class="celeb-avatar">
+                            <img src="<?php echo $wo['site_url'].'/upload/influnecer_page/'.$wo['influncer_info']['logo'] ?>" class="img-responsive">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="heading">
+                            <h3><?php echo $wo['influncer_info']['name']?></h3>
+                        </div>
+                        <div class="location">
+                            <p><?php echo $wo['influncer_info']['location']?></p>
+                        </div>
+                        <div class="curr-ranking">
+                            <label>
+                                <a href="javascript:;">
+                                    Category: <?php echo $wo['influncer_info']['cat_name'] ?>
+                                </a>
+                            </label>
+                        </div>
+                        <?php if (!empty($wo['ranking_info'])) { ?>
+                            <?php echo GetInfluencerRankingInfo($wo['ranking_info'], $wo['influncer_info']['page_id'], $wo['user']['user_id']); ?>
+                        <?php } else { ?>
+                            <div class="curr-ranking">
+                                <label>
+                                    Current Ranking: 0
+                                </label>
+                            </div>
+                            <div class="curr-ranking">
+                                <label>
+                                    <a href="javascript:;">
+                                        Total Ranking Points: 0 points
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="curr-ranking">
+                                <label>
+                                    <a href="javascript:;">
+                                        Your Ranking: Not Ranked
+                                    </a>
+                                </label>
+                            </div>
+                        <?php } ?>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="vote-box">
+                            <a href="javascript:;" class="purchase-package"> Become a SuperFan to vote for 3 artists in this category!</a><br>
+                            <div class="mt-15">
+                                <button type="button" class="btn-vote btn-color-blue vote-now" data-rank="<?php echo $wo['vote'] ?>">Vote Now</button>
+                                <button type="button" class="btn-back" onclick=" window.location.href='<?php echo $wo['site_url'] . '/influencer' ?>';">Return to Rankings</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-box2">
+                    <label>
+                        Social Media:
+                        <?php if ($wo['influncer_info']['facebook'] == 1) { ?>
+                            <img src="<?php echo $wo['site_url'].'/themes/fanzoodle/img/social_icons/facebook.png' ?>" class="img-fluid">
+                        <?php } ?>
+                        <?php if ($wo['influncer_info']['youtube'] == 1) { ?>
+                            <img src="<?php echo $wo['site_url'].'/themes/fanzoodle/img/social_icons/youtube.png' ?>" class="img-fluid">
+                        <?php } ?>
+                        <?php if ($wo['influncer_info']['tiktok'] == 1) { ?>
+                            <img src="<?php echo $wo['site_url'].'/themes/fanzoodle/img/social_icons/tiktok.png' ?>" class="img-fluid">
+                        <?php } ?>
+                        <?php if(!empty($wo['influncer_info']['twitter'])){ ?>
+                            <p>
+                                <img src="<?php echo $wo['site_url'].'/themes/fanzoodle/img/social_icons/twitter.png' ?>" class="img-fluid">:
+                                <?php echo $wo['influncer_info']['twitter'] ?>
+                                <?php if(!empty($wo['influncer_info']['instagram'])) { ?>
+                                    <img src="<?php echo $wo['site_url'].'/themes/fanzoodle/img/social_icons/instagram.png' ?>" class="img-fluid">:
+                                    <?php echo $wo['influncer_info']['instagram'] ?>
+                                <?php } ?>
+                            </p>
+                        <?php } ?>
+
+                    </label>
+                </div>
+                <div class="info-box2">
+                    <label>About:</label>
+                    <p class="min-text" id="add-class">
+                        <?php echo $wo['influncer_info']['about']?>
+                    </p>
+                    <?php if(strlen($wo['influncer_info']['about']) > 200){?>
+                        <div class="text-right">
+                            <a href="javascript:;" class="read-more">Read More</a>
+                        </div>
+                    <?php }?>
+                    <div class="text-right">
+                        <label style="font-size: 10px;"> Sources: <?php echo $wo['influncer_info']['sources'] ?></label>
+                        <label style="font-size: 10px;">Date: <?php echo $wo['influncer_info']['date'] ?></label>
+                    </div>
+                </div>
+                <div class="info-box2 text-right">
+                    <img src="<?php echo $wo['site_url'].'/upload/influnecer_page/snapshot/'.$wo['influncer_info']['snapshot']?>" class="img-responsive">
+                    <div class="">
+                    <label style="font-size: 10px;">Image Date: <?php echo date('m-d-Y',strtotime($wo['influncer_info']['snapshot_date']))?></label>
+                    <label><a href="javascript:;" style="font-size: 10px;">Request a new profile screenshot</a> </label>
+                    </div>
+                </div>
+                <div class="info-box2">
+                    <label style="width: 100%;">Gallery:
+                        <?php if ($wo['vote'] == 0) { ?>
+                            <a href="javascript:;" class="purchase-package">
+                                Become a SuperFan to <u>add your favorite photo of the artist</u>, or a photo with
+                                you
+                                or of you with their album!
+                            </a>
+                        <?php } else { ?>
+                            <a href="javascript:;" class="purchase-package">
+                                <u>Add your favorite photo of the artist</u>, or a photo with
+                                you
+                                or of you with their album!
+                            </a>
+                            <button type="button" class="btn-vote btn-color-blue open-upload-modal pull-right">
+                                Upload File
+                            </button>
+                        <?php } ?>
+                    </label>
+                    <div class="gallery-slider">
+                        <!--SLICK-->
+                        <div class="slick-slider">
+                            <?php foreach($wo['influncer_info']['gallery_images'] as $key => $value){?>
+                                <div>
+                                    <div class="gallery-img">
+                                        <img src="<?php echo $wo['site_url'] . '/upload/influnecer_page/gallery/'. $value ?>" data-url="<?php echo $wo['site_url'] . '/upload/influnecer_page/gallery/'. $value ?>"
+                                             alt="" class="img-responsive">
+                                        <div class="hoverd-info">
+                                            <div>
+                                                <label>By: <?php echo $wo['influncer_info']['photo_credit'][$key] ?></label>
+                                                <label class="pull-right"> <?php echo date('m-d-Y', strtotime($wo['influncer_info']['image_capture'][$key])) ?></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-box2 text-center" style="margin-top:12px; ">
+                    <p style="font-size: 8px;">
+                        Is this your profile? Would you like to have access to control content and share with contacts? Click <a href="javasctipt:;">HERE</a> to request.
+                    </p>
+                </div>
+                <div class="top-category">
+                    <h3>Top 3: Category- <a href="javascript:;"><u><?php echo $wo['influncer_info']['cat_name'] ?></u></a>
+                    </h3>
+                    <div class="row">
+                        <?php $pos = 0 ?>
+                        <?php foreach ($wo['top_artist'] as $top_artist) { ?>
+                            <?php $pos++ ?>
+                            <div class="col-md-4 mb-15">
+                                <div class="d-flex">
+                                    <div class="">
+                                        <img width="50px"
+                                             src="<?php echo $wo['site_url'] . '/upload/influnecer_page/' . $top_artist['logo'] ?>"
+                                             class="img-responsive">
+                                    </div>
+                                    <div class="">
+                                        <label>Name: <b><?php echo $top_artist['influencer_name'] ?></b></label><br>
+                                        <label>Current Rankings: <b>0<?php echo $pos ?></b></label>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+                <?php if ($wo['vote'] == 0) { ?>
+                    <div class="info-box2 text-center">
+                        <p>
+                            Want to share a comment or story about this Influencer? Become a SuperFan
+                            <u><a href="javascript:;" class="purchase-package">HERE</a></u> to share your
+                            story!
+                        </p>
+                    </div>
+                <?php } ?>
+                <?php if ($wo['vote'] == 1) { ?>
+                    <div class="info-box2">
+                        <div class="post" style="margin-bottom: 15px;">
+                            <div class="post-footer post-comments">
+                                <div class="comments-list">
+                                    <span class="comment-container"></span>
+                                    <?php foreach ($wo['influencer_comments'] as $comments) { ?>
+                                        <div class="comment comment-container" id="comment">
+                                            <a class="pull-left" href="javascript:;">
+                                                <img class="avatar pull-left"
+                                                     src="<?php echo $wo['site_url'] . $comments['avatar'] ?>"
+                                                     alt="avatar">
+                                            </a>
+                                            <div class="comment-body">
+                                                <div class="comment-heading">
+                                                   <span>
+                                                      <a href="javascript:;">
+                                                         <h4 class="user"> <?php echo $comments['first_name'] . ' ' . $comments['last_name'] ?> </h4>
+                                                      </a>
+                                                   </span>
+                                                    <div class="pull-right comment-options comment_edele_options">
+                                                      <span class="pointer comment-icons" id="editComment"
+                                                            onclick="Wo_OpenCommentEditBox(6);">
+                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                              viewBox="0 0 24 24" fill="none"
+                                                              stroke="currentColor" stroke-width="2"
+                                                              stroke-linecap="round"
+                                                              stroke-linejoin="round"
+                                                              class="feather feather-edit-2">
+                                                            <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+                                                         </svg>
+                                                      </span>
+                                                        <span class="pointer" id="deleteComment"
+                                                              onclick="Wo_DeleteComment(6);">
+                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                              viewBox="0 0 24 24" fill="none"
+                                                              stroke="currentColor" stroke-width="2"
+                                                              stroke-linecap="round"
+                                                              stroke-linejoin="round"
+                                                              class="feather feather-trash-2">
+                                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                         </svg>
+                                                      </span>
+                                                    </div>
+                                                    <div class="comment-text"
+                                                         style="max-height: none;"><?php echo $comments['comment'] ?></div>
+                                                    <div class="clear"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                    <div class="comment-append"></div>
+                                </div>
+                                <div class="post-commet-textarea dropdown">
+                                    <div id="wo_comment_combo" class="remove_combo_on_click wo_comment_combo_1"
+                                         onclick="Wo_ShowCommentCombo(1);">
+                                        <form method="POST" id="template-comment">
+                                            <input type="hidden"
+                                                   value="<?php echo $wo['influncer_info']['page_id']; ?>"
+                                                   name="temp_id">
+                                            <input type="hidden"
+                                                   value="<?php echo $wo['influncer_info']['temp_type']; ?>"
+                                                   name="temp_type">
+                                            <div style="display: flex;">
+                                                <img class="avatar"
+                                                     src="<?php echo $wo['user']['avatar'] ?>">
+                                                <textarea
+                                                        class="form-control comment-textarea textarea ui-autocomplete-input"
+                                                        placeholder="Write your comment here" type="text"
+                                                        name="comment"></textarea>
+                                            </div>
+                                            <div class="comment_combo_footer">
+                                                <div class="ball-pulse">
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                                <div class="wo_comment_fopt">
+                                                    <div>
+                                                        <button class="btn btn-file" id="template_comment">
+                                                            <svg fill="#009da0" height="24" viewBox="0 0 24 24"
+                                                                 width="24"
+                                                                 xmlns="http://www.w3.org/2000/svg"
+                                                                 class="feather feather-user-plus">
+                                                                <path d="M3.741 1.408l18.462 10.154a.5.5 0 0 1 0 .876L3.741 22.592A.5.5 0 0 1 3 22.154V1.846a.5.5 0 0 1 .741-.438zM5 13v6.617L18.85 12 5 4.383V11h5v2H5z"></path>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div id="comment-image" class="hidden comment-image-con"></div>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+                <?php } else { ?>
+                    <div class="wo_my_pages">
+                        <div>
+                            <div class="empty_state">
+                                <svg id="Capa_1" width="20" height="20" enable-background="new 0 0 512.219 512.219"
+                                     viewBox="0 0 512.219 512.219" xmlns="http://www.w3.org/2000/svg">
+                                    <g>
+                                        <g>
+                                            <path d="m320.147 470.746h-128.075v-293.228c0-3.558 2.884-6.442 6.442-6.442h115.191c3.558 0 6.442 2.884 6.442 6.442z"
+                                                  fill="#f37c7c"></path>
+                                            <path d="m448.222 469.746h-128.075v-223.95c0-3.558 2.884-6.442 6.442-6.442h115.191c3.558 0 6.442 2.884 6.442 6.442z"
+                                                  fill="#99e6fc"></path>
+                                            <path d="m192.072 473.746h-128.075v-170.351c0-3.558 2.884-6.442 6.442-6.442h115.191c3.558 0 6.442 2.884 6.442 6.442z"
+                                                  fill="#bbec6c"></path>
+                                            <path d="m396.645 421.746c-14.354 0-25.991-11.636-25.991-25.991v-149.96c0-3.558 2.884-6.442 6.442-6.442h-50.507c-3.558 0-6.442 2.884-6.442 6.442v175.951 48h50.507 77.568v-48z"
+                                                  fill="#62dbfb"></path>
+                                            <path d="m272.451 421.746c-16.498 0-29.872-13.374-29.872-29.872v-214.356c0-3.558 2.884-6.442 6.442-6.442h-50.507c-3.558 0-6.442 2.884-6.442 6.442v244.228 49h50.507 77.568v-49z"
+                                                  fill="#ee6161"></path>
+                                            <path d="m141.908 421.746c-15.135 0-27.403-12.269-27.403-27.403v-90.948c0-3.558 2.884-6.442 6.442-6.442h-50.508c-3.558 0-6.442 2.884-6.442 6.442v118.351 52h50.507 77.568v-52z"
+                                                  fill="#a2e62e"></path>
+                                            <path d="m492.659 441.746h-473.099c-6.661 0-12.06 5.4-12.06 12.06v40.179c0 5.761 4.671 10.432 10.432 10.432h476.355c5.761 0 10.432-4.671 10.432-10.432v-40.179c0-6.66-5.399-12.06-12.06-12.06z"
+                                                  fill="#d7d0d6"></path>
+                                            <path d="m261.382 11.079 15.943 32.303c.856 1.735 2.512 2.938 4.427 3.216l35.649 5.18c4.823.701 6.748 6.627 3.259 10.029l-25.796 25.144c-1.386 1.351-2.018 3.297-1.691 5.204l6.09 35.505c.824 4.803-4.218 8.466-8.531 6.198l-31.885-16.763c-1.713-.901-3.759-.901-5.472 0l-31.885 16.763c-4.314 2.268-9.355-1.395-8.531-6.198l6.09-35.505c.327-1.907-.305-3.854-1.691-5.204l-25.798-25.143c-3.49-3.402-1.564-9.328 3.259-10.029l35.649-5.18c1.915-.278 3.571-1.481 4.427-3.216l15.943-32.303c2.156-4.371 8.387-4.371 10.544-.001z"
+                                                  fill="#fee45a"></path>
+                                        </g>
+                                        <g>
+                                            <path d="m492.659 434.246h-36.938v-188.45c0-7.688-6.254-13.942-13.941-13.942h-114.134v-54.335c0-7.688-6.254-13.942-13.941-13.942h-115.191c-7.688 0-13.941 6.254-13.941 13.942v53.15c0 4.142 3.357 7.5 7.5 7.5s7.5-3.358 7.5-7.5v-52.092h113.074v255.67h-113.075v-171.616c0-4.142-3.357-7.5-7.5-7.5s-7.5 3.358-7.5 7.5v26.822h-114.134c-7.688 0-13.941 6.254-13.941 13.942v130.852h-36.937c-10.785 0-19.56 8.774-19.56 19.56v50.611c0 4.142 3.357 7.5 7.5 7.5h497.219c4.143 0 7.5-3.358 7.5-7.5v-50.611c0-10.786-8.775-19.561-19.56-19.561zm-421.162-129.793h113.075v129.793h-113.075zm425.722 192.465h-482.219v-43.111c0-2.515 2.045-4.56 4.56-4.56h352.625c4.143 0 7.5-3.358 7.5-7.5s-3.357-7.5-7.5-7.5h-44.538v-187.393h113.075v187.393h-36.575c-4.143 0-7.5 3.358-7.5 7.5s3.357 7.5 7.5 7.5h88.513c2.515 0 4.56 2.045 4.56 4.56v43.111z"></path>
+                                            <path d="m211.511 91.728-5.945 34.664c-.868 5.056 1.171 10.071 5.321 13.086s9.548 3.406 14.092 1.019l31.131-16.367 31.131 16.367c1.976 1.038 4.112 1.551 6.239 1.551 2.763 0 5.507-.866 7.853-2.57 4.15-3.016 6.189-8.03 5.321-13.086l-5.945-34.665 25.187-24.55c3.673-3.581 4.971-8.836 3.385-13.715-1.585-4.879-5.724-8.369-10.801-9.106l-34.806-5.058-15.567-31.538c-2.27-4.601-6.867-7.459-11.998-7.459s-9.729 2.858-11.998 7.458l-15.565 31.539-34.806 5.058c-5.077.737-9.216 4.227-10.801 9.106-1.586 4.879-.288 10.134 3.385 13.715zm20.035-37.708c4.358-.633 8.125-3.37 10.074-7.319l14.489-29.359 14.489 29.359c1.949 3.949 5.716 6.686 10.075 7.319l32.399 4.708-23.445 22.854c-3.154 3.075-4.593 7.502-3.848 11.843l5.534 32.269-28.978-15.234c-3.9-2.052-8.556-2.051-12.454-.001l-28.979 15.235 5.535-32.269c.744-4.34-.694-8.768-3.849-11.843l-23.445-22.853z"></path>
+                                            <path d="m364.685 71.175c0 4.142 3.357 7.5 7.5 7.5h10.741c4.143 0 7.5-3.358 7.5-7.5s-3.357-7.5-7.5-7.5h-10.741c-4.143 0-7.5 3.357-7.5 7.5z"></path>
+                                            <path d="m359.26 26.282c1.036 0 2.09-.216 3.095-.672l9.781-4.439c3.771-1.712 5.441-6.158 3.729-9.929-1.711-3.771-6.157-5.441-9.929-3.73l-9.781 4.439c-3.771 1.712-5.441 6.158-3.729 9.929 1.255 2.766 3.981 4.402 6.834 4.402z"></path>
+                                            <path d="m356.155 130.398 9.781 4.439c1.006.456 2.059.672 3.095.672 2.853 0 5.579-1.636 6.834-4.402 1.712-3.771.042-8.217-3.729-9.929l-9.781-4.439c-3.774-1.711-8.219-.041-9.929 3.73-1.712 3.771-.042 8.217 3.729 9.929z"></path>
+                                            <path d="m130.293 78.675h10.741c4.143 0 7.5-3.358 7.5-7.5s-3.357-7.5-7.5-7.5h-10.741c-4.143 0-7.5 3.358-7.5 7.5s3.357 7.5 7.5 7.5z"></path>
+                                            <path d="m141.083 21.17 9.781 4.439c1.006.456 2.059.672 3.095.672 2.853 0 5.579-1.636 6.834-4.402 1.712-3.771.042-8.217-3.729-9.929l-9.781-4.439c-3.775-1.712-8.219-.041-9.929 3.73-1.712 3.771-.042 8.217 3.729 9.929z"></path>
+                                            <path d="m150.864 116.739-9.781 4.439c-3.771 1.712-5.441 6.158-3.729 9.929 1.255 2.767 3.981 4.402 6.834 4.402 1.036 0 2.09-.216 3.095-.672l9.781-4.439c3.771-1.712 5.441-6.158 3.729-9.929-1.711-3.771-6.156-5.44-9.929-3.73z"></path>
+                                        </g>
+                                    </g>
+                                </svg>
+                                No user to show
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="vote-now" tabindex="-1" role="dialog" aria-labelledby="exampleModal1Label"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <div class="response_message"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="image-preview" tabindex="-1" role="dialog" aria-labelledby="exampleModal1Label"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="append-preview"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="again-vote-now" tabindex="-1" role="dialog" aria-labelledby="exampleModal1Label"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <h2>Vote now for <?php echo ucwords($wo['influncer_info']['name']) ?></h2>
+                <p>
+                    Reminder, you get one vote per category - you currently have <br>
+                    influencer X ranked 1st in this category. You will be switching you rlone vote.
+                </p>
+                <form method="POST" id="vote-template">
+                    <input type="hidden" value="<?php echo $wo['influncer_info']['page_id'] ?>" name="influencer_id">
+                    <label>
+                        <input type="radio" name="rank" value="1" checked>
+                        1 Rank
+                    </label>
+                    <label>
+                        <input type="radio" name="rank" value="2">
+                        2 Rank
+                    </label>
+                    <label>
+                        <input type="radio" name="rank" value="3">
+                        3 Rank
+                    </label>
+                    <label>
+                        <input type="radio" name="rank" value="4">
+                        Like
+                    </label>
+                    <div>
+                        <button class="btn btn-info waves-effect" id="rank-artist">Vote Now</button>
+                    </div>
+                </form>
+                <p>
+                    Sign up to be a SuperFan for $5.99 a month
+                </p>
+                <p>
+                    to vote for both and get three votes per category and unlimited 'Likes"
+                </p>
+                <!--                <div class="response_message"></div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="upload-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModal1Label"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--            <div class="modal-header">-->
+            <!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+            <!--                    <span aria-hidden="true">-->
+            <!--                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"-->
+            <!--                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"-->
+            <!--                             class="feather feather-x">-->
+            <!--                        <line x1="18" y1="6" x2="6" y2="18"></line>-->
+            <!--                        <line x1="6" y1="6" x2="18" y2="18"></line>-->
+            <!--                    </svg>-->
+            <!--                    </span>-->
+            <!--                </button>-->
+            <!--            </div>-->
+            <div class="modal-body text-center">
+                <p>Image size should be 240X150</p>
+                <form method="post" id="submit-upload" enctype="multipart/form-data">
+                    <input type="hidden" value="<?php echo $wo['influncer_info']['page_id'] ?>" name="influencer_id">
+                    <div class="form-group">
+                        <label for="file" class="sr-only">File</label>
+                        <div class="input-group">
+                            <input type="text" name="filename" class="form-control" placeholder="No file selected"
+                                   readonly>
+                            <span class="input-group-btn">
+                              <div class="btn btn-default  custom-file-uploader">
+                                <input type="file" name="user-upload-file" accept="image/*"
+                                       onchange="this.form.filename.value = this.files.length ? this.files[0].name : ''"/>
+                                Select a file
+                              </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Photo Credit <span>*</span></label>
+                                <input type="text" name="photo_credit" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Date <span>*</span></label>
+                                <input type="date" name="credit_date" class="form-control" value="<?php echo date('Y-m-d') ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-info waves-effect">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).on('click', '.read-more', function (){
+        $('.info-box2').find('.min-text').removeClass('min-text');
+        $(this).text('Read Less').removeClass('read-more').addClass('read-less');
+    });
+    $(document).on('click', '.read-less', function (){
+        $('.info-box2').find('#add-class').addClass('min-text');
+        $(this).text('Read More').removeClass('read-less').addClass('read-more');
+    });
+
+    //Open Gallery Image In Modal For Preview
+    $(document).on('click', '.gallery-img', function (){
+        var url = $(this).find('img').data('url');
+        var html = '<img src="'+url+'" class="img-responsive">';
+        $('.append-preview').empty(html);
+        $('.append-preview').append(html);
+        $('#image-preview').modal('show');
+    });
+
+    // Template Comment
+    $("form#template-comment").on("submit", function (e) {
+        var dataString = $(this).serialize();
+        $.ajax({
+            type: "POST",
+            url: Wo_Ajax_Requests_File() + "?f=admin_setting&s=template_comment",
+            data: dataString,
+            success: function (data) {
+                if (data.status == 200) {
+                    $('.post-commet-textarea .comment-textarea').val(" ");
+                    $('.comment-append').append(data.data);
+                } else {
+                    $('.response_message').empty();
+                    $('.response_message').append(data.message);
+                    $('#vote-now').modal('show');
+                }
+            }
+        });
+        e.preventDefault();
+    });
+    $(document.body).on('click', '.vote-now', function () {
+        var rank = $('.vote-now').data('rank');
+        if (rank == 0) {
+            $.ajax({
+                url: Wo_Ajax_Requests_File() + "?f=admin_setting&s=vote_now_influencer&vote_id=1&influencer_id=" +<?php echo $wo['influncer_info']['page_id'] ?>,
+                type: "get",
+                beforeSend: function () {
+                    $('.vote-now').attr("disabled",true);
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        $('.response_message').empty();
+                        $('.response_message').append(data.message);
+                        // $('#vote-now').modal('show');
+                        $('#vote-now').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+                        if (data.occurence == 'first') {
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 5000);
+                        }
+                    } else {
+                        $('.response_message').empty();
+                        $('.response_message').append(data.message);
+                        $('#vote-now').modal('show');
+                        $('.vote-now').attr("disabled",false);
+                    }
+                }
+            });
+        }
+        if (rank == 1) {
+            $('#again-vote-now').modal('show');
+        }
+    });
+    // Again Vote
+    $("form#vote-template").on("submit", function (e) {
+        var dataString = $(this).serialize();
+        $.ajax({
+            type: "POST",
+            url: Wo_Ajax_Requests_File() + "?f=admin_setting&s=again_vote_now_influencer",
+            data: dataString,
+            success: function (data) {
+                if (data.status == 200) {
+                    $('.response_message').empty();
+                    $('.response_message').append(data.message);
+                    $('#again-vote-now').modal('hide');
+                    $('#vote-now').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 5000);
+                } else {
+                    $('.response_message').empty();
+                    $('.response_message').append(data.message);
+                    $('#again-vote-now').modal('hide');
+                    $('#vote-now').modal('show');
+                }
+            }
+        });
+        e.preventDefault();
+    });
+    //Purchase Package
+    $(document.body).on('click', '.purchase-package', function () {
+        $.ajax({
+            url: Wo_Ajax_Requests_File() + "?f=admin_setting&s=purchase_package&type=superfan&artist_id=" +<?php echo $wo['influncer_info']['page_id'] ?>,
+            type: "get",
+            success: function (data) {
+                if (data.status == 200) {
+                    $('.response_message').empty();
+                    $('.response_message').append(data.message);
+                    $('#vote-now').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 5000);
+                } else {
+                    $('.response_message').empty();
+                    $('.response_message').append(data.message);
+                    $('#vote-now').modal('show');
+                }
+            }
+        });
+        $('#purchaseModal').modal('show');
+    });
+    $(document.body).on('click', '.open-upload-modal', function () {
+        $('#upload-modal').modal('show');
+    });
+    //User Upload
+    $("form#submit-upload").on("submit", function (e) {
+        var formData = new FormData(this);
+        $.ajax({
+            type: "POST",
+            url: Wo_Ajax_Requests_File() + "?f=admin_setting&s=user_upload_images_influencer",
+            data: formData,
+            success: function (data) {
+                if (data.status == 200) {
+                    $('.response_message').empty();
+                    $('.response_message').append(data.message);
+                    $('#upload-modal').modal('hide');
+                    $('#vote-now').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    $('.response_message').empty();
+                    $('.response_message').append(data.message);
+                    $('#upload-modal').modal('hide');
+                    $('#vote-now').modal('show');
+                }
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+        e.preventDefault();
+    });
+    $(document).ready(function (){
+        $('.slick-prev').text('<');
+        $('.slick-next').text('>');
+    })
+</script>

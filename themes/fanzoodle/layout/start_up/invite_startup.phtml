@@ -1,0 +1,104 @@
+<div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <div class="page-margin wow_creads_minstp wow__minstp step-three-active">
+            <div class="line">
+                <div class="line_sec"></div>
+                <div class="dot one">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+                    </svg>
+                </div>
+                <div class="dot two">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+                    </svg>
+                </div>
+                <div class="dot three">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="steps">
+                <div class="step step-one"><?php echo $wo['lang']['ad_media']; ?></div>
+                <div class="step step-two"><?php echo $wo['lang']['info']; ?></div>
+                <div class="step step-three">Invite</div>
+            </div>
+        </div>
+        <div class="page-margin wow_content">
+            <div class="add-photo wow_usr_steps">
+                <h2>Invite Your Friends</h2>
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <form action="#" method="post" class="invite-user-form">
+                        <div class="invite-user-form-alert"></div>
+                        <div class="wow_form_fields invite-user-combine">
+                            <input type="text" name="email" placeholder="Email"
+                                   class="form-control">
+                            <button class="btn btn-main btn-sm" title="<?php echo $wo['lang']['send_invitation']; ?>">
+                                <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate invite-loader" style="display: none;"></span>
+                                <svg class="send-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="clear"></div>
+                    </form>
+                </div>
+                <div class="col-md-3"></div>
+                <div class="clear"></div>
+            </div>
+            <div class="continue-button wow_usr_steps_cont">
+                <small class="skip-step"
+                       onclick="Wo_SkipStep('start_up_info');"><?php echo $wo['lang']['start_up_skip']; ?></small>
+                <!--                <button class="btn con-button btn-main btn-mat btn-mat-raised" onclick="Wo_SubmitInfoForm();">-->
+                <?php //echo $wo['lang']['start_up_continue'];?><!--</button>-->
+                <button class="btn con-button btn-main btn-mat btn-mat-raised"
+                        onclick="Wo_RedirectForm();"><?php echo $wo['lang']['start_up_continue']; ?></button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-1"></div>
+</div>
+
+<script type="text/javascript">
+
+    function Wo_RedirectForm() {
+        window.location.href = '<?php echo Wo_SeoLink('index.php?link1=welcome');?>';
+    }
+
+    function Wo_SubmitFollow() {
+        $('.con-button').attr('disabled', true);
+        $('.con-button').text("<?php echo $wo['lang']['please_wait'];?>");
+        var users = $('#users-id').val();
+        $.post(Wo_Ajax_Requests_File() + '?f=follow_users', {user: users}, function (data) {
+            if (data.status == 200) {
+                window.location.href = '<?php echo Wo_SeoLink('index.php?link1=start-up');?>';
+            }
+        });
+    }
+
+    $(function () {
+        $('form.invite-user-form').ajaxForm({
+            url: Wo_Ajax_Requests_File() + '?f=invite_user',
+            beforeSend: function () {
+                $('.invite-loader').show();
+                $('.send-icon').hide();
+            },
+            success: function (data) {
+                if (data.status == 200) {
+                    $('.invite-user-form-alert').html('<div class="alert alert-success">' + data.message + '</div>');
+                    $('.alert-success').fadeIn(300);
+                } else {
+                    var errors = data.errors.join("<br>");
+                    $('.invite-user-form-alert').html('<div class="alert alert-danger">' + errors + '</div>');
+                    $('.alert-danger').fadeIn(300);
+                }
+                Wo_progressIconLoader($('form.invite-user-form').find('button'));
+                $('.invite-loader').hide();
+                $('.send-icon').show();
+            },
+        });
+    });
+</script>

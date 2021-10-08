@@ -1,0 +1,677 @@
+<?php
+//$influencer_categories = GetInfluncerCategoriesByPlatformID(1);
+$influencer_categories = GetAllInfluncerCategories();
+$platforms = GetInfluncerPlatforms();
+$page = (!empty($_GET['page-id']) && is_numeric($_GET['page-id'])) ? $_GET['page-id'] : 1;
+$filter_keyword = (!empty($_GET['query'])) ? Wo_Secure($_GET['query']) : '';
+$filter_type = '';
+$db->pageLimit = 5;
+$link = '';
+
+
+if (!empty($filter_keyword)) {
+    $link .= '&query=' . $filter_keyword;
+    $sql = "(
+    `page_id`        LIKE '%$filter_keyword%' OR
+    `name`       LIKE '%$filter_keyword%' OR
+    `username` LIKE '%$filter_keyword%'
+  )";
+
+    $pages = $db->where($sql);
+}
+$sort_link = $link;
+$sort_array = array('DESC_i' => array('page_id', 'DESC'),
+    'ASC_i' => array('page_id', 'ASC'),
+    'DESC_c' => array('influencer_category', 'DESC'),
+    'ASC_c' => array('influencer_category', 'ASC'));
+if (!empty($_GET['sort']) && in_array($_GET['sort'], array_keys($sort_array))) {
+    $link .= "&sort=" . Wo_Secure($_GET['sort']);
+    $db->orderBy($sort_array[$_GET['sort']][0], $sort_array[$_GET['sort']][1]);
+} else {
+    $_GET['sort'] = 'DESC_i';
+    $db->orderBy('page_id', 'DESC');
+    $pages = $db->objectbuilder()->paginate(T_INFLUNCER_PAGES, $page);
+}
+if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
+    header("Location: " . Wo_LoadAdminLinkSettings('manage-Influencer-pages'));
+    exit();
+}
+
+?>
+
+<div class="container-fluid">
+    <div>
+        <h3>Influencer Pages</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#">Manage Influencers</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Influencer</li>
+            </ol>
+        </nav>
+    </div>
+    <!-- Vertical Layout -->
+    <div class="row">
+        <div class="col-lg-4 col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Add Influencer</h6>
+                    <div class="row">
+                        <div class="col-md-12" style="margin-bottom:0;">
+                            <div class=" edit_category_form_alert"></div>
+                            <form method="POST" id="add_teampage_form">
+                                <div class="row">
+                                    <div class="col-md-6" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Profile Image</label>
+                                                <input type="file" required class="form-control" name="logo"
+                                                       accept="image/*">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Date</label>
+                                                <input type="date" required class="form-control" name="logo_date" value="<?php echo date('Y-m-d') ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Name:</label>
+                                                <input type="text" required class="form-control" name="name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Insta Handle:</label>
+                                                <input type="text" required class="form-control" name="username">
+                                            </div>
+                                        </div>
+                                    </div>
+<!--                                    <div class="col-md-12" id="normal-query-form">-->
+<!--                                        <div class="form-group form-float">-->
+<!--                                            <div class="form-line">-->
+<!--                                                <label class="form-label">Platform:</label>-->
+<!--                                                <select required class="form-control select_platform" name="platform">-->
+<!--                                                    --><?php //foreach ($platforms as $platform) { ?>
+<!--                                                        <option value="--><?php //echo $platform['id'] ?><!--">--><?php //echo ucfirst($platform['name']) ?><!--</option>-->
+<!--                                                    --><?php //} ?>
+<!--                                                </select>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                    <div class="col-md-12" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Influencer Category:</label>
+                                                <select required class="form-control platform_category" name="influencer_category">
+                                                    <?php foreach ($influencer_categories as $influencer_category) { ?>
+                                                        <option value="<?php echo $influencer_category['id'] ?>"><?php echo ucfirst($influencer_category['name']) ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Location:</label>
+                                                <input type="text" required class="form-control" name="location">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Social Media:</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label for="fb" class="form-label">Facebook:</label>
+                                                <input type="checkbox" class="" value="0" name="facebook" id="fb">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label for="yt" class="form-label">Youtube:</label>
+                                                <input type="checkbox" class="" value="0" name="youtube" id="yt">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label for="tt" class="form-label">Tiktok:</label>
+                                                <input type="checkbox" class="" value="0" name="tiktok" id="tt">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Twitter:</label>
+                                                <input type="text" class="form-control" name="twitter">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Instagram:</label>
+                                                <input type="text" class="form-control" name="instagram">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">About: (Please add source and date at the end of the content. Thank you)</label>
+                                                <textarea required class="form-control" name="about"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Sources:</label>
+                                                <input type="text" required class="form-control" name="sources">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Date:</label>
+                                                <input type="date" required class="form-control" value="<?php echo date('Y-m-d') ?>" name="source_date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Platform Snapshot</label>
+                                                <input type="file" required class="form-control" name="snapshot"
+                                                       accept="image/*">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Platform Snapshot Date</label>
+                                                <input type="date" required class="form-control" name="snapshot_date" value="<?php echo date('Y-m-d') ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Current Rank:</label>
+                                                <input type="text" required class="form-control"
+                                                       placeholder="To be generated dynamically" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Total Influencer Points:</label>
+                                                <input type="text" required class="form-control"
+                                                       placeholder="To be generated dynamically" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 text-right ">
+                                        <i class="fa fa-plus add-row" data-add="add" title="Click to add below row" style="cursor: pointer;"></i>
+                                    </div>
+                                    <div class="col-md-12" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Gallery: (Image size should be 240X150)</label>
+                                                <input type="file" required class="form-control" name="gallery[]" accept="image/*">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Photo Credit:</label>
+                                                <input type="text" required class="form-control"
+                                                       name="photo_credit[]">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" id="normal-query-form">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label">Image Capture Date:</label>
+                                                <input type="date" required class="form-control" value="<?php echo date('Y-m-d') ?>"
+                                                       name="image_capture_date[]" placeholder="mm-dd-yy">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="add"></div>
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-12">
+                                        <div>&nbsp;</div>
+                                        <button class="btn btn-info waves-effect">Add</button>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class=" edit_category_form_alert"></div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Manage & Edit Influencers</h6>
+                    <div class="row">
+                        <div class="col-md-10" style="margin-bottom:0;">
+                            <form method="get" action="<?php echo Wo_LoadAdminLinkSettings('manage-influencer-pages'); ?>">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div class="form-group form-float">
+                                            <div class="form-line">
+                                                <label class="form-label search-form">
+                                                    Search for ID, Name, Insta handle.
+                                                </label>
+                                                <input type="text" name="query" id="query" class="form-control"
+                                                       value="<?php echo($filter_keyword); ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label>&nbsp;</label>
+                                        <button class="btn btn-info">Search</button>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                    <input type="hidden" id="hash_id" name="hash_id" value="<?php echo Wo_CreateSession(); ?>">
+                    <div class="clearfix"></div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" id="check-all" class="filled-in check-all"><label
+                                            for="check-all"></label></th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Insta handle</th>
+<!--                                <th>Platform</th>-->
+                                <th>Influencer Category</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            foreach ($pages as $pagelist) {
+                                $wo['pagelist'] = Wo_InfluncerData($pagelist->page_id);
+                                echo Wo_LoadAdminPage('manage-influencer-pages/list');
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="wo-admincp-feturepager">
+                        <div class="pull-left">
+                            <span>
+                              <?php echo "Showing $page out of " . $db->totalPages; ?>
+                            </span>
+                        </div>
+                        <div class="pull-right">
+                            <nav>
+                                <ul class="pagination">
+                                    <li>
+                                        <a href="<?php echo Wo_LoadAdminLinkSettings('manage-influencer-pages?page-id=1') . $link; ?>"
+                                           data-ajax="?path=manage-influencer-pages&page-id=1<?php echo($link); ?>"
+                                           class="waves-effect" title='First Page'>
+                                            <i class="material-icons">first_page</i>
+                                        </a>
+                                    </li>
+                                    <?php if ($page > 1) { ?>
+                                        <li>
+                                            <a href="<?php echo Wo_LoadAdminLinkSettings('manage-influencer-pages?page-id=' . ($page - 1)) . $link; ?>"
+                                               data-ajax="?path=manage-influencer-pages&page-id=<?php echo($page - 1) ?><?php echo($link); ?>"
+                                               class="waves-effect" title='Previous Page'>
+                                                <i class="material-icons">chevron_left</i>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+
+                                    <?php
+                                    $nums = 0;
+                                    $nums_pages = ($page > 4) ? ($page - 4) : $page;
+
+                                    for ($i = $nums_pages; $i <= $db->totalPages; $i++) {
+                                        if ($nums < 20) {
+                                            ?>
+                                            <li class="<?php echo ($page == $i) ? 'active' : ''; ?>">
+                                                <a href="<?php echo Wo_LoadAdminLinkSettings('manage-influencer-pages?page-id=' . ($i)) . $link; ?>"
+                                                   data-ajax="?path=manage-influencer-pages&page-id=<?php echo($i) ?><?php echo($link); ?>"
+                                                   class="waves-effect">
+                                                    <?php echo $i ?>
+                                                </a>
+                                            </li>
+
+                                        <?php }
+                                        $nums++;
+                                    } ?>
+
+                                    <?php if ($db->totalPages > $page) { ?>
+                                        <li>
+                                            <a href="<?php echo Wo_LoadAdminLinkSettings('manage-influencer-pages?page-id=' . ($page + 1)) . $link; ?>"
+                                               data-ajax="?path=manage-influencer-pages&page-id=<?php echo($page + 1) ?><?php echo($link); ?>"
+                                               class="waves-effect" title="Next Page">
+                                                <i class="material-icons">chevron_right</i>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+                                    <li>
+                                        <a href="<?php echo Wo_LoadAdminLinkSettings('manage-influencer-pages?page-id=' . ($db->totalPages)) . $link; ?>"
+                                           data-ajax="?path=manage-influencer-pages&page-id=<?php echo($db->totalPages) ?><?php echo($link); ?>"
+                                           class="waves-effect" title='Last Page'>
+                                            <i class="material-icons">last_page</i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4">
+                                <span>&nbsp;</span>
+                                <button type="button" class="btn btn-info waves-effect delete-selected d-block"
+                                        disabled>Delete Selected<span></span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <!-- #END# Vertical Layout -->
+    <div class="modal fade" id="SelectedDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal1Label"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModal1Label">Delete page?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure that you want to remove the selected page?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="DeleteSelected()" data-dismiss="modal">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal1Label"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModal1Label">Delete page?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this page?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bd-example-modal-lg" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal1Label"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModal1Label">Edit Influencer Page</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="edit_category_form_alert"></div>
+                <form method="POST" id="edit_teampage_form">
+                    <div class="modal-body">
+                        <div id="tobeappendHTML">
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary waves-effect">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        $(document).on('change','.select_platform', function(){
+            var this_value = this.value;
+            $.ajax({
+                url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=get_influencer_category&platform_id=' + this_value + '&hash_id=' + hash_id,
+                type: 'GET',
+                success: function (response) {
+                    $('.platform_category').empty();
+                    $('.platform_category').append(response);
+                }
+            });
+        });
+        // Add Row
+        $(document.body).on('click', '.add-row',function (){
+            // var copied_div = $('#tobecopied').clone();
+            var d = new Date();
+
+            var month = d.getMonth()+1;
+            var day = d.getDate();
+
+            var output = d.getFullYear() + '-' +
+                ((''+month).length<2 ? '0' : '') + month + '-' +
+                ((''+day).length<2 ? '0' : '') + day;
+            var attr = $(this).data('add');
+            var copied_div = '<div class="row">'+
+                '<div class="col-md-12" id="normal-query-form">'+
+                '<div class="form-group form-float">'+
+                '<div class="form-line">'+
+                '<input type="file" required class="form-control" name="gallery[]" accept="image/*">'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '<div class="col-md-5" id="normal-query-form">'+
+                '<div class="form-group form-float">'+
+                '<div class="form-line">'+
+                '<label class="form-label">Photo Credit:</label>'+
+                '<input type="text" required class="form-control" name="photo_credit[]">'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '<div class="col-md-5" id="normal-query-form">'+
+                '<div class="form-group form-float">'+
+                '<div class="form-line">'+
+                '<label class="form-label">Image Capture Date:</label>'+
+                '<input type="date" required class="form-control" name="image_capture_date[]" value="'+output+'" placeholder="mm-dd-yy">'+
+                '</div>'+
+                '</div>'+
+                '</div>'+
+                '<div class="col-md-2 text-center">'+
+                '<i class="fa fa-times delete-row" title="Click to delete" style="cursor: pointer;margin-top: 40px;"></i>'+
+                '</div>'+
+                '</div>';
+            $('#'+attr).append(copied_div);
+            $('.layout-wrapper .content-wrapper .content-body .content').niceScroll().resize();
+        })
+
+        $(document.body).on('click', '.delete-row', function () {
+            $(this).parent().parent().remove()
+        });
+
+        var add_category_form = $('form#add_teampage_form');
+        var edit_category_form = $('form#edit_teampage_form');
+
+        add_category_form.ajaxForm({
+            url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=add_influencer_page',
+            beforeSend: function () {
+                add_category_form.find('.waves-effect').text("Please wait..");
+            },
+            success: function (data) {
+                if (data.status == 200) {
+                    add_category_form.find('.waves-effect').text('Save');
+                    $('.edit_category_form_alert').html('<div class="alert alert-success"><i class="fa fa-check"></i> Influncer added successfully</div>');
+                    setTimeout(function () {
+                        $('.add_category_form_alert').empty();
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    $('.edit_category_form_alert').html('<div class="alert alert-danger"><i class="fa fa-check"></i> ' + data.message + '</div>');
+                    add_category_form.find('.waves-effect').text("Add");
+                    setTimeout(function () {
+                        $('.add_category_form_alert').empty();
+                    }, 5000);
+                }
+            }
+        });
+
+        edit_category_form.ajaxForm({
+            url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=update_influencer_page&hash=' + $('.main_session').val(),
+            beforeSend: function () {
+                edit_category_form.find('.waves-effect').text("Please wait..");
+            },
+            success: function (data) {
+                if (data.status == 200) {
+                    edit_category_form.find('.waves-effect').text('Save');
+                    $('.edit_category_form_alert').html('<div class="alert alert-success"><i class="fa fa-check"></i> Category successfully edited</div>');
+                    setTimeout(function () {
+                        $('.edit_category_form_alert').empty();
+                    }, 1000);
+                    window.location.reload();
+                } else {
+                    $('.edit_category_form_alert').html('<div class="alert alert-danger"><i class="fa fa-check"></i> ' + data.message + '</div>');
+                    edit_category_form.find('.waves-effect').text("Add");
+                    setTimeout(function () {
+                        $('.edit_category_form_alert').empty();
+                    }, 5000);
+                }
+            }
+        });
+
+        $('.check-all').on('click', function (event) {
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+        $('.delete-checkbox, .check-all').change(function (event) {
+            $('.delete-selected').attr('disabled', false);
+            $('.delete-selected').find('span').text(' (' + $('.delete-checkbox:checked').length + ')');
+        });
+
+        $('.delete-selected').on('click', function (event) {
+            event.preventDefault();
+            $('#SelectedDeleteModal').modal('show');
+        });
+
+        function DeleteSelected() {
+            data = new Array();
+            $('td input:checked').parents('tr').each(function () {
+                data.push($(this).attr('data_selected'));
+            });
+            $('.delete-selected').attr('disabled', true);
+            $('.delete-selected').text('Please wait..');
+            $.post(Wo_Ajax_Requests_File() + "?f=admin_setting&s=remove_influnecer_page", {ids: data}, function () {
+                $.each(data, function (index, value) {
+                    $("#PageID_" + value).remove();
+                });
+                $('.delete-selected').text('Delete Selected');
+            });
+        }
+
+        function Wo_DeletePage(page_id, type = 'show') {
+            if (type == 'hide') {
+                $('#DeleteModal').find('.btn-primary').attr('onclick', "Wo_DeletePage('" + page_id + "')");
+                $('#DeleteModal').modal('show');
+                return false;
+            }
+            hash_id = $('#hash_id').val();
+            $('#PageID_' + page_id).fadeOut(300, function () {
+                $(this).remove();
+            });
+            $.get(Wo_Ajax_Requests_File(), {
+                f: 'admin_setting',
+                s: 'delete_Influnecer_page',
+                page_id: page_id,
+                hash_id: hash_id
+            });
+        }
+
+        function Wo_EditPage(page_id, type = 'show') {
+            if (type == 'hide') {
+                // $.post(Wo_Ajax_Requests_File(),{f:'admin_setting',s:'get_team_page',page_id: page_id, hash_id:hash_id});
+                $.ajax({
+                    url: Wo_Ajax_Requests_File() + '?f=admin_setting&s=get_influencer_page&page_id=' + page_id + '&hash_id=' + hash_id,
+                    type: 'GET',
+                    success: function (response) {
+                        $('#tobeappendHTML').empty();
+                        $('#tobeappendHTML').append(response);
+                    }
+                });
+                // $('#EditModal').find('.btn-primary').attr('onclick', "Wo_EditPage('"+page_id+"')");
+                $('#EditModal').modal('show');
+                return false;
+            }
+            hash_id = $('#hash_id').val();
+            $('#PageID_' + page_id).fadeOut(300, function () {
+                $(this).remove();
+            });
+            $.get(Wo_Ajax_Requests_File(), {
+                f: 'admin_setting',
+                s: 'delete_team_page',
+                page_id: page_id,
+                hash_id: hash_id
+            });
+        }
+
+        function DeleteGalleryImage(id){
+            var id = id;
+            $.post(Wo_Ajax_Requests_File() + "?f=admin_setting&s=remove_influencer_gallery_image", {id: id}, function () {
+                $('body .remove-'+id).remove();
+            });
+        }
+
+    </script>

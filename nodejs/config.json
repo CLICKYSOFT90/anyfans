@@ -1,0 +1,8 @@
+{
+    "sql_db_host": "localhost",
+    "sql_db_user": "umairali",
+    "sql_db_pass": "developer",
+    "sql_db_name": "pitpass",
+    "site_url": "http://localhost/pittpass/",
+    "purchase_code": "36ab860d-3201-4f6d-880b-f23d9e3988d4"
+}

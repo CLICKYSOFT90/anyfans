@@ -54,15 +54,16 @@
                     <div class="row">
                         <?php if (!empty($wo['data'])) { ?>
                             <?php foreach ($wo['data'] as $main_cat => $cat_listing) { ?>
-                                    <?php $total_category_points = GetInfluencerCategoryTotalPoints($cat_listing); ?>
-                                    <div class="col-md-6">
-                                        <div class="cat-listing-box">
-                                            <div class="category">
-                                                Category: <b><?php echo $main_cat ?></b>
-                                            </div>
-                                            <div class="listing">
-                                                <ol type="1">
-                                                    <?php foreach ($cat_listing as $cat_list) { ?>
+                                <?php $total_category_points = GetInfluencerCategoryTotalPoints($cat_listing); ?>
+                                <div class="col-md-6">
+                                    <div class="cat-listing-box">
+                                        <div class="category">
+                                            Category: <b><?php echo $main_cat ?></b>
+                                        </div>
+                                        <div class="listing">
+                                            <ol type="1">
+                                                <?php foreach ($cat_listing as $counter => $cat_list) { ?>
+                                                    <?php if ($counter !== 10) { ?>
                                                         <li>
                                                             <a href="<?php echo $wo['site_url'] . '/influencer/rank?id=' . $cat_list['page_id'] ?>">
                                                                 <b><?php echo $cat_list['name'] ?></b>
@@ -72,40 +73,44 @@
                                                                 <span class="pull-right"><?php echo GetArtistPercentage($total_category_points, $cat_list['influencer_actual_points']) ?>%</span>
                                                             </a>
                                                         </li>
-                                                    <?php } ?>
-                                                </ol>
-                                            </div>
-                                            <div class="cat-vote">
-                                                Your Vote:<br>
-                                                <?php foreach ($cat_listing as $cat_list) { ?>
-                                                    <?php if ($cat_list['voted_user'] == $wo['user']['user_id'] && $cat_list['soft_delete'] == 0) { ?>
-                                                        <a href="<?php echo $wo['site_url'] . '/influencer/rank?id=' . $cat_list['page_id'] ?>">
-                                                            <b><?php echo $cat_list['name'] ?></b>
-                                                        </a>
                                                     <?php } else { ?>
-                                                        <b> </b>
+                                                        <?php break; ?>
                                                     <?php } ?>
                                                 <?php } ?>
-                                            </div>
-                                            <div class="cat-rank">
-                                                Global Rank:<br>
-                                                <?php foreach ($cat_listing as $pos => $cat_list) { ?>
-                                                    <?php $pos++; ?>
-                                                    <?php if ($cat_list['voted_user'] == $wo['user']['user_id'] && $cat_list['soft_delete'] == 0) { ?>
-                                                        <b><?php echo $pos ?></b>
-                                                    <?php } else { ?>
-                                                        <b> </b>
-                                                    <?php } ?>
+                                            </ol>
+                                        </div>
+                                        <div class="cat-vote">
+                                            Your Vote:<br>
+                                            <?php foreach ($cat_listing as $cat_list) { ?>
+                                                <?php if ($cat_list['voted_user'] == $wo['user']['user_id'] && $cat_list['soft_delete'] == 0) { ?>
+                                                    <a href="<?php echo $wo['site_url'] . '/influencer/rank?id=' . $cat_list['page_id'] ?>">
+                                                        <b><?php echo $cat_list['name'] ?></b>
+                                                    </a>
+                                                <?php } else { ?>
+                                                    <b> </b>
                                                 <?php } ?>
-                                            </div>
-                                            <div class="text-center cat-full-listing">
-                                                <p style="font-size: 12px;">SEE FULL list page <a
-                                                            href="<?php echo $wo['site_url'] . '/influencer/category/list/' . url_slug($main_cat) ?>">HERE</a>
-                                                </p>
-                                                <p style="font-size: 9px;">This category is not of interest to me <a href="javascript:;">Click Here</a> </p>
-                                            </div>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="cat-rank">
+                                            Global Rank:<br>
+                                            <?php foreach ($cat_listing as $pos => $cat_list) { ?>
+                                                <?php $pos++; ?>
+                                                <?php if ($cat_list['voted_user'] == $wo['user']['user_id'] && $cat_list['soft_delete'] == 0) { ?>
+                                                    <b><?php echo $pos ?></b>
+                                                <?php } else { ?>
+                                                    <b> </b>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="text-center cat-full-listing">
+                                            <p style="font-size: 12px;">SEE FULL list page <a
+                                                        href="<?php echo $wo['site_url'] . '/influencer/category/list/' . url_slug($main_cat) ?>">HERE</a>
+                                            </p>
+                                            <p style="font-size: 9px;">This category is not of interest to me <a
+                                                        href="javascript:;">Click Here</a></p>
                                         </div>
                                     </div>
+                                </div>
                             <?php } ?>
                         <?php } else { ?>
                             <div class="col-md-12">

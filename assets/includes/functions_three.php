@@ -1436,7 +1436,7 @@ function GetAllArtistGenre()
     if ($wo['loggedin'] == false) {
         return false;
     }
-    $query = mysqli_query($sqlConnect, "SELECT * FROM " . T_GENRE);
+    $query = mysqli_query($sqlConnect, "SELECT * FROM " . T_GENRE . " ORDER BY name");
 
     if (mysqli_num_rows($query)) {
         $array = [];

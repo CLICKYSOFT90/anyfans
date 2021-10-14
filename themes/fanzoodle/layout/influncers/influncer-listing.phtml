@@ -42,15 +42,7 @@
         <div class="col-md-7 singlecol">
             <div class="page-margin wow_content mt-0" style="padding: 8px 30px;">
                 <div class="rank-heading">
-                    <h2 class="text-center">
-                        Rank your favourite in every category!<br>
-                        See right column for unlimited categories!
-                    </h2>
-                    <h3 class="text-center">
-                        Vote below for your favourites in each category.<br>
-                        Check out the column on the right for all categories!
-                        <i class="fa fa-arrow-right"></i>
-                    </h3>
+                    <img src="<?php echo $wo['config']['theme_url'].'/img/logo-3d.jpg'?>" class="img-responsive" style="width: 50%; margin-top: 20px; margin-bottom: 20px;">
                     <div class="row">
                         <?php if (!empty($wo['data'])) { ?>
                             <?php foreach ($wo['data'] as $main_cat => $cat_listing) { ?>
@@ -106,8 +98,9 @@
                                             <p style="font-size: 12px;">SEE FULL list page <a
                                                         href="<?php echo $wo['site_url'] . '/influencer/category/list/' . url_slug($main_cat) ?>">HERE</a>
                                             </p>
-                                            <p style="font-size: 9px;">This category is not of interest to me <a
-                                                        href="javascript:;">Click Here</a></p>
+                                            <p style="font-size: 9px;">Don't see your favorite? Add your Favorite <a href="javascript:;">Here</a> </p>
+                                            <p style="font-size: 9px;">Search top Rankings page for your favorite Influencer or Artist! </p>
+                                            <p style="font-size: 9px;">This category is not of interest to me <a href="javascript:;">Click Here</a> </p>
                                         </div>
                                     </div>
                                 </div>

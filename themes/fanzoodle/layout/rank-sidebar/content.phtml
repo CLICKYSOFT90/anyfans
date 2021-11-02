@@ -24,7 +24,7 @@
                     <?php foreach ($wo['category_listing'] as $key => $cat_listing) { ?>
                         <li>
                             <div>
-                                <a href="<?php echo $wo['site_url'] . '/' . $key ?>"><?php echo ucfirst($key) ?></a>
+                                <a href="<?php echo $wo['site_url'] . '/' . $key ?>"><?php echo ucwords(str_replace('-', ' ',$key)) ?></a>
                                 <i class="fa fa-chevron-down pull-right slide-cat" data-class=".<?php echo $key ?>"></i>
                             </div>
                             <div class="<?php echo $key ?>" style="display: none;">

@@ -42,7 +42,7 @@
         <div class="col-md-7 singlecol">
             <div class="page-margin wow_content mt-0" style="padding: 8px 30px;">
                 <div class="rank-heading">
-                   <img src="<?php echo $wo['config']['theme_url'].'/img/logo-3d.jpg'?>" class="img-responsive" style="width: 50%; margin-top: 20px; margin-bottom: 20px;">
+                   <img src="<?php echo $wo['config']['theme_url'].'/img/logo-3d.jpg'?>" class="img-responsive" style="width: 100%; margin-bottom: 20px; height: 170px;">
                     <div class="row">
                         <?php if (!empty($wo['data'])) { ?>
                             <?php foreach ($wo['data'] as $main_cat => $cat_listing) { ?>
@@ -61,7 +61,7 @@
                                                             <li>
                                                                 <a href="<?php echo $wo['site_url'] . '/artist/rank?id=' . $cat_list['page_id'] ?>">
                                                                     <b><?php echo $cat_list['name'] ?></b>
-                                                                    <!--                                                                    <span class="pull-right">-->
+                                                                    <!--<span class="pull-right">-->
                                                                     <?php //echo $cat_list['artist_actual_points'] ?><!--%</span>-->
                                                                     <span class="pull-right"><?php echo GetArtistPercentage($total_category_points, $cat_list['artist_actual_points']) ?>%</span>
                                                                 </a>
@@ -74,27 +74,19 @@
                                             </div>
                                             <div class="cat-vote">
                                                 Your Vote:<br>
-                                                <?php foreach ($cat_lists as $cat_list) { ?>
-                                                    <?php if ($cat_list['voted_user'] == $wo['user']['user_id'] && $cat_list['soft_delete'] == 0) { ?>
-                                                        <a href="<?php echo $wo['site_url'] . '/artist/rank?id=' . $cat_list['page_id'] ?>">
-                                                            <b><?php echo $cat_list['name'] ?></b>
-                                                        </a>
-                                                    <?php } else { ?>
-                                                        <b> </b>
-                                                    <?php } ?>
-                                                <?php } ?>
+                                                <?php echo GetArtistVotedListing($cat_lists, $wo['user']['user_id']) ?>
                                             </div>
-                                            <div class="cat-rank">
-                                                Global Rank:<br>
-                                                <?php foreach ($cat_lists as $pos => $cat_list) { ?>
-                                                    <?php $pos++; ?>
-                                                    <?php if ($cat_list['voted_user'] == $wo['user']['user_id'] && $cat_list['soft_delete'] == 0) { ?>
-                                                        <b><?php echo $pos ?></b>
-                                                    <?php } else { ?>
-                                                        <b> </b>
-                                                    <?php } ?>
-                                                <?php } ?>
-                                            </div>
+<!--                                            <div class="cat-rank">-->
+<!--                                                Global Rank:<br>-->
+<!--                                                --><?php //foreach ($cat_lists as $pos => $cat_list) { ?>
+<!--                                                    --><?php //$pos++; ?>
+<!--                                                    --><?php //if ($cat_list['voted_user'] == $wo['user']['user_id'] && $cat_list['soft_delete'] == 0) { ?>
+<!--                                                        <b>--><?php //echo $pos ?><!--</b>-->
+<!--                                                    --><?php //} else { ?>
+<!--                                                        <b> </b>-->
+<!--                                                    --><?php //} ?>
+<!--                                                --><?php //} ?>
+<!--                                            </div>-->
                                             <div class="text-center cat-full-listing">
                                                 <p style="font-size: 12px;">SEE FULL list page <a
                                                             href="<?php echo $wo['site_url'] . '/artist/category/list/' . url_slug($key) ?>">HERE</a>

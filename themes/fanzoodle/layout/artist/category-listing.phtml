@@ -55,7 +55,7 @@
                         <div class="col-md-12">
                             <label>Category: <b> <?php echo ucfirst($_GET['platform']) ?></b></label>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-5">
                             <ol type="1">
                                 <?php foreach($wo['data'] as $listing ){?>
                                     <li>
@@ -67,7 +67,7 @@
                                 <?php } ?>
                             </ol>
                         </div>
-                        <div class="col-md-4 your-vote">
+                        <div class="col-md-5 your-vote" style="margin-left: 50px;">
                             <label>
                                 Your Artist <br>
                                 <?php foreach ($wo['data'] as $cat_list) { ?>

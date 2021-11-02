@@ -1,13 +1,4 @@
 <?php
-// +------------------------------------------------------------------------+
-// | @author Deen Doughouz (DoughouzForest)
-// | @author_url 1: http://www.wowonder.com
-// | @author_url 2: http://codecanyon.net/user/doughouzforest
-// | @author_email: wowondersocial@gmail.com   
-// +------------------------------------------------------------------------+
-// | WoWonder - The Ultimate Social Networking Platform
-// | Copyright (c) 2016 WoWonder. All rights reserved.
-// +------------------------------------------------------------------------+
 /* Script Main Functions (File 3) */
 
 
@@ -1414,7 +1405,7 @@ function GetAllCategoryListing()
     if ($wo['loggedin'] == false) {
         return false;
     }
-    $query = mysqli_query($sqlConnect, "SELECT * FROM " . T_TEMPLATE_CATEGORY . " where template_type != 'artist' ORDER BY template_type");
+    $query = mysqli_query($sqlConnect, "SELECT * FROM " . T_TEMPLATE_CATEGORY . " where template_type != 'artist' and status = 1 ORDER BY template_type");
 
     if (mysqli_num_rows($query)) {
         $template_type = '';
@@ -1436,7 +1427,7 @@ function GetAllArtistGenre()
     if ($wo['loggedin'] == false) {
         return false;
     }
-    $query = mysqli_query($sqlConnect, "SELECT * FROM " . T_GENRE . " ORDER BY name");
+    $query = mysqli_query($sqlConnect, "SELECT * FROM " . T_GENRE . " where status = 1 ORDER BY name");
 
     if (mysqli_num_rows($query)) {
         $array = [];
@@ -1667,6 +1658,40 @@ function GetInfluencerCategoryTotalPoints($array_artist)
     return $sum;
 }
 
+function GetArtistVotedListing($array_artist, $user_id)
+{
+    foreach($array_artist as $pos => $cat_list){
+        $pos++;
+         if ($cat_list['voted_user'] == $user_id && $cat_list['soft_delete'] == 0) {
+            $html .= "<a href='".$wo['site_url'] . '/artist/rank?id=' . $cat_list['page_id']."'>
+                        $pos) <b>".$cat_list['name']."</b>
+                    </a>";
+         } else{
+         }
+    }
+    if(empty($html)){
+        $html = '<b>You have not yet voted in this category</b>';
+    }
+    return $html;
+}
+
+function GetInfluencerVotedListing($array_artist, $user_id)
+{
+    foreach($array_artist as $pos => $cat_list){
+        $pos++;
+         if ($cat_list['voted_user'] == $user_id && $cat_list['soft_delete'] == 0) {
+            $html .= "<a href='".$wo['site_url'] . '/influencer/rank?id=' . $cat_list['page_id']."'>
+                        $pos) <b>".$cat_list['name']."</b>
+                    </a>";
+         } else{
+         }
+    }
+    if(empty($html)){
+        $html = '<b>You have not yet voted in this category</b>';
+    }
+    return $html;
+}
+
 function GetArtistPercentage($total_points, $artist_points)
 {
     $percentage = $artist_points * 100 / $total_points;
@@ -1694,6 +1719,7 @@ function GetInfluencerCategoryListing()
                                                 from ".T_INFLUNCER_PAGES." as ip                                      
                                                 JOIN template_categories tc on tc.id = ip.influencer_category
                                                 left JOIN influencer_ranking ir on ir.influencer_id = ip.page_id
+                                                where tc.status = 1
                                                 group by ip.page_id order by influencer_actual_points DESC;");
     if (mysqli_num_rows($query)) {
         $cat_name = '';
@@ -1733,6 +1759,7 @@ function GetArtistCategoryListing()
                                                 JOIN template_categories tc on tc.id = ap.artist_category
                                                 left JOIN artist_ranking ar on ar.artist_id = ap.page_id
                                                 left JOIN genre gen on ap.platform = gen.id
+                                                where gen.status = 1
                                                 group by ap.page_id order by artist_actual_points DESC;");
     if (mysqli_num_rows($query)) {
         $cat_name = '';

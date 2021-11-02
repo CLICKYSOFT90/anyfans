@@ -2802,6 +2802,13 @@ if ($f == 'admin_setting' and (Wo_IsAdmin() || Wo_IsModerator())) {
     //Add Influnecer Page
     if ($s == 'add_influencer_page') {
         $data = array();
+        if ($_POST['influencer_category'] == 0) {
+            $data['status'] = 400;
+            $data['message'] = "Please Select Influencer Category";
+            header("Content-type: application/json");
+            echo json_encode($data);
+            exit();
+        }
         if (CheckUsernameFromDB($_POST['username'], T_INFLUNCER_PAGES) == true) {
             $data['status'] = 400;
             $data['message'] = "Username already exist";

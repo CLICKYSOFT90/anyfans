@@ -115,6 +115,7 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
                                             <div class="form-line">
                                                 <label class="form-label">Influencer Category:</label>
                                                 <select required class="form-control platform_category" name="influencer_category">
+                                                    <option value="0" selected disabled>Select Influencer Category</option>
                                                     <?php foreach ($influencer_categories as $influencer_category) { ?>
                                                         <option value="<?php echo $influencer_category['id'] ?>"><?php echo ucfirst($influencer_category['name']) ?></option>
                                                     <?php } ?>

@@ -49,51 +49,51 @@
             </div>
             <div class="page-margin wow_content mt-0" style="padding: 8px 30px;">
                 <?php if(!empty($wo['data'])){ ?>
-                    <?php $total_category_points =  GetInfluencerCategoryTotalPoints($wo['data']) ?>
+                    <?php $total_category_points =  GetInfluencerCategoryTotalPoints($wo['data']); ?>
                     <div class="category-listing">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label>Platform: <b> <?php echo ucfirst($_GET['platform']) ?></b></label>
-                        </div>
-                        <div class="col-md-8">
-                            <ol type="1">
-                                <?php foreach($wo['data'] as $listing ){?>
-                                    <li>
-                                        <a href="<?php echo $wo['site_url'].'/influencer/rank?id='.$listing['page_id'] ?>">
-                                            <b><?php echo $listing['name'] ?></b>
-                                            <span class="pull-right"><?php echo GetArtistPercentage($total_category_points,$listing['influencer_actual_points']) ?>%</span>
-                                        </a>
-                                    </li>
-                                <?php } ?>
-                            </ol>
-                        </div>
-                        <div class="col-md-4 your-vote">
-                            <label>
-                                Your Influencer <br>
-                                <?php foreach ($wo['data'] as $cat_list) { ?>
-                                    <?php if($cat_list['voted_user'] == $wo['user']['user_id'] && $cat_list['soft_delete'] == 0){ ?>
-                                        <a href="<?php echo $wo['site_url'] . '/influencer/rank?id=' . $cat_list['page_id'] ?>">
-                                            <b><?php echo $cat_list['name'] ?></b>
-                                        </a>
-                                    <?php } else{ ?>
-                                        <b> </b>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Platform: <b> <?php echo ucfirst($_GET['platform']) ?></b></label>
+                            </div>
+                            <div class="col-md-5">
+                                <ol type="1">
+                                    <?php foreach($wo['data'] as $listing ){?>
+                                        <li>
+                                            <a href="<?php echo $wo['site_url'].'/influencer/rank?id='.$listing['page_id'] ?>">
+                                                <b><?php echo $listing['name'] ?></b>
+                                                <span class="pull-right"><?php echo GetArtistPercentage($total_category_points,$listing['influencer_actual_points']) ?>%</span>
+                                            </a>
+                                        </li>
                                     <?php } ?>
-                                <?php } ?>
-                            </label><br>
-                            <label>
-                                Current Rank <br>
-                                <?php foreach ($wo['data'] as $pos => $cat_list) { ?>
-                                    <?php $pos++; ?>
-                                    <?php if($cat_list['voted_user'] == $wo['user']['user_id'] && $cat_list['soft_delete'] == 0){ ?>
-                                        <b>#<?php echo $pos ?></b>
-                                    <?php } else{ ?>
-                                        <b> </b>
+                                </ol>
+                            </div>
+                            <div class="col-md-5 your-vote" style="margin-left: 50px;">
+                                <label>
+                                    Your Influencer <br>
+                                    <?php foreach ($wo['data'] as $cat_list) { ?>
+                                        <?php if($cat_list['voted_user'] == $wo['user']['user_id'] && $cat_list['soft_delete'] == 0){ ?>
+                                            <a href="<?php echo $wo['site_url'] . '/influencer/rank?id=' . $cat_list['page_id'] ?>">
+                                                <b><?php echo $cat_list['name'] ?></b>
+                                            </a>
+                                        <?php } else{ ?>
+                                            <b> </b>
+                                        <?php } ?>
                                     <?php } ?>
-                                <?php } ?>
-                            </label>
+                                </label><br>
+                                <label>
+                                    Current Rank <br>
+                                    <?php foreach ($wo['data'] as $pos => $cat_list) { ?>
+                                        <?php $pos++; ?>
+                                        <?php if($cat_list['voted_user'] == $wo['user']['user_id'] && $cat_list['soft_delete'] == 0){ ?>
+                                            <b>#<?php echo $pos ?></b>
+                                        <?php } else{ ?>
+                                            <b> </b>
+                                        <?php } ?>
+                                    <?php } ?>
+                                </label>
+                            </div>
                         </div>
                     </div>
-                </div>
                 <?php } else{ ?>
                     <div class="wo_my_pages">
                         <div>

@@ -1105,6 +1105,26 @@ function Wo_GetRank($id)
 
 }
 
+function Wo_GetTemplateCategories($id)
+{
+    $data = array();
+    global $wo, $sqlConnect;
+    if ($wo['loggedin'] == false) {
+        return false;
+    }
+    $id = Wo_Secure($id);
+    $query = mysqli_query($sqlConnect, "SELECT * FROM ". T_TEMPLATE_CATEGORY ." WHERE id = '{$id}'");
+    if (mysqli_num_rows($query)) {
+        while ($fetched_data = mysqli_fetch_assoc($query)) {
+            $data = $fetched_data;
+        }
+        return $data;
+    } else{
+        return false;
+    }
+
+}
+
 function Wo_GetArtist($id)
 {
     $data = array();
@@ -1230,7 +1250,7 @@ function GetTemplateCategoriesByType($template_type_category, $platform = '')
         return false;
     }
     $template_type_category = Wo_Secure($template_type_category);
-    $sql = "SELECT * FROM " . T_TEMPLATE_CATEGORY . " WHERE template_type = '{$template_type_category}'";
+    $sql = "SELECT * FROM " . T_TEMPLATE_CATEGORY . " WHERE template_type = '{$template_type_category}' AND status = 1";
 
     $query = mysqli_query($sqlConnect, $sql);
     if (mysqli_num_rows($query)) {
@@ -1251,7 +1271,7 @@ function GetGenre()
         return false;
     }
 
-    $sql = "SELECT * FROM " . T_GENRE;
+    $sql = "SELECT * FROM " . T_GENRE ." WHERE status = 1";
 
     $query = mysqli_query($sqlConnect, $sql);
     if (mysqli_num_rows($query)) {
@@ -1354,7 +1374,7 @@ function GetAllInfluncerCategories()
     if (Wo_IsAdmin() === false) {
         return false;
     }
-    $query = mysqli_query($sqlConnect, "SELECT * FROM " . T_TEMPLATE_CATEGORY . " WHERE template_type = 'influencer'");
+    $query = mysqli_query($sqlConnect, "SELECT * FROM " . T_TEMPLATE_CATEGORY . " WHERE template_type = 'influencer' AND status = 1");
     if (mysqli_num_rows($query)) {
         while ($fetched_data = mysqli_fetch_assoc($query)) {
             $data[] = $fetched_data;
@@ -1868,6 +1888,40 @@ function Wo_RemoveInfluencerGalleryImage($id)
     }
     $id = Wo_Secure($id);
     $query = mysqli_query($sqlConnect, "DELETE FROM " . T_INFLUNCER_PAGES_IMAGES . " WHERE `id` = {$id}");
+    if ($query) {
+        return true;
+    }
+    return false;
+}
+
+function Wo_DeleteGenre($id)
+{
+    global $wo, $sqlConnect;
+    if ($wo['loggedin'] == false) {
+        return false;
+    }
+    if (Wo_IsAdmin() === false) {
+        return false;
+    }
+    $id = Wo_Secure($id);
+    $query = mysqli_query($sqlConnect, "DELETE FROM " . T_GENRE . " WHERE `id` = {$id}");
+    if ($query) {
+        return true;
+    }
+    return false;
+}
+
+function Wo_DeleteTemplateCategory($id)
+{
+    global $wo, $sqlConnect;
+    if ($wo['loggedin'] == false) {
+        return false;
+    }
+    if (Wo_IsAdmin() === false) {
+        return false;
+    }
+    $id = Wo_Secure($id);
+    $query = mysqli_query($sqlConnect, "DELETE FROM " . T_TEMPLATE_CATEGORY . " WHERE `id` = {$id}");
     if ($query) {
         return true;
     }

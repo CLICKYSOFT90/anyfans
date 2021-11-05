@@ -5,7 +5,7 @@ $platforms = GetInfluncerPlatforms();
 $page = (!empty($_GET['page-id']) && is_numeric($_GET['page-id'])) ? $_GET['page-id'] : 1;
 $filter_keyword = (!empty($_GET['query'])) ? Wo_Secure($_GET['query']) : '';
 $filter_type = '';
-$db->pageLimit = 5;
+$db->pageLimit = 10;
 $link = '';
 
 

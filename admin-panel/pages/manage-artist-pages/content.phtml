@@ -3,7 +3,7 @@ $artist_categories = GetTemplateCategoriesByType('artist');
 $page = (!empty($_GET['page-id']) && is_numeric($_GET['page-id'])) ? $_GET['page-id'] : 1;
 $filter_keyword = (!empty($_GET['query'])) ? Wo_Secure($_GET['query']) : '';
 $filter_type = '';
-$db->pageLimit = 5;
+$db->pageLimit = 10;
 $link = '';
 
 $genres = GetGenre();
@@ -90,7 +90,7 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6" id="normal-query-form">
+                                    <div class="col-md-6 col-sm-12" id="normal-query-form">
                                         <div class="form-group form-float">
                                             <div class="form-line">
                                                 <label class="form-label">Genre:</label>
@@ -103,7 +103,7 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6" id="normal-query-form">
+                                    <div class="col-md-6 col-sm-12" id="normal-query-form">
                                         <div class="form-group form-float">
                                             <div class="form-line">
                                                 <label class="form-label">Artist/Band Category:</label>

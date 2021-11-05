@@ -61,6 +61,8 @@ $pages = array(
     'manage-reports',
     'manage-artist-pages',
     'manage-influencer-pages',
+    'manage-genre',
+    'manage-template-categories',
     'push-notifications-system',
     'manage-api-access-keys',
     'verfiy-applications',
@@ -107,7 +109,7 @@ $pages = array(
     'live',
     'node',
 );
-$mod_pages = array('dashboard', 'post-settings', 'manage-stickers', 'manage-gifts', 'manage-users', 'online-users', 'manage-stories', 'manage-pages', 'manage-groups', 'manage-posts', 'manage-articles', 'manage-events', 'manage-forum-threads', 'manage-forum-messages', 'manage-movies', 'manage-games', 'add-new-game', 'manage-user-ads', 'manage-reports','manage-artist-pages','manage-influencer-pages', 'manage-third-psites', 'edit-movie','bank-receipts','job-categories','manage-jobs');
+$mod_pages = array('dashboard', 'post-settings', 'manage-stickers', 'manage-gifts', 'manage-users', 'online-users', 'manage-stories', 'manage-pages', 'manage-groups', 'manage-posts', 'manage-articles', 'manage-events', 'manage-forum-threads', 'manage-forum-messages', 'manage-movies', 'manage-games', 'add-new-game', 'manage-user-ads', 'manage-reports','manage-artist-pages','manage-influencer-pages','manage-template-categories', 'manage-genre', 'manage-third-psites', 'edit-movie','bank-receipts','job-categories','manage-jobs');
 
 
 if (!empty($_GET['page'])) {
@@ -865,6 +867,22 @@ if (!empty($_COOKIE['mode']) && $_COOKIE['mode'] == 'night') {
                             <li>
                                 <a <?php echo ($page == 'manage-influencer-pages') ? 'class="active"' : ''; ?> href="<?php echo Wo_LoadAdminLinkSettings('manage-influencer-pages'); ?>" data-ajax="?path=manage-influencer-pages">Manage Influencers</a>
 <!--                                <a --><?php //echo ($page == 'manage-influencer-pages') ? 'class="active"' : ''; ?><!-- href="--><?php //echo Wo_LoadAdminLinkSettings('manage-influencer-pages'); ?><!--" data-ajax="?path=manage-Influencer-pages">Manage Influencers</a>-->
+                            </li>
+                        </ul>
+                    </li>
+                    <li <?php echo ($page == 'manage-categories') || ($page == 'manage-genre') ? 'class="open"' : ''; ?>>
+                        <a href="#">
+                            <span class="nav-link-icon">
+                                <i class="material-icons">description</i>
+                            </span>
+                            <span>Categories/Genre</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a <?php echo ($page == 'manage-template-categories') ? 'class="active"' : ''; ?> href="<?php echo Wo_LoadAdminLinkSettings('manage-template-categories'); ?>" data-ajax="?path=manage-template-categories">Manage Template Categories</a>
+                            </li>
+                            <li>
+                                <a <?php echo ($page == 'manage-genre') ? 'class="active"' : ''; ?> href="<?php echo Wo_LoadAdminLinkSettings('manage-genre'); ?>" data-ajax="?path=manage-genre">Manage Genre</a>
                             </li>
                         </ul>
                     </li>

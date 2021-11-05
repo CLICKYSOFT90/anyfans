@@ -1909,6 +1909,68 @@ function Wo_PageData($page_id = 0) {
 
     return $fetched_data;
 }
+function Wo_GetGenre($page_id = 0) {
+    global $wo, $sqlConnect, $cache;
+    if (empty($page_id) || !is_numeric($page_id) || $page_id < 0) {
+        return false;
+    }
+    $data           = array();
+    $page_id        = Wo_Secure($page_id);
+    $query_one      = "SELECT * FROM " . T_GENRE . " WHERE `id` = {$page_id}";
+    $hashed_page_Id = md5($page_id);
+    if ($wo['config']['cacheSystem'] == 1) {
+        $fetched_data = $cache->read($hashed_page_Id . '_PAGE_Data.tmp');
+        if (empty($fetched_data)) {
+            $sql          = mysqli_query($sqlConnect, $query_one);
+            if (mysqli_num_rows($sql)) {
+                $fetched_data = mysqli_fetch_assoc($sql);
+                $cache->write($hashed_page_Id . '_PAGE_Data.tmp', $fetched_data);
+            }
+
+        }
+    } else {
+        $sql          = mysqli_query($sqlConnect, $query_one);
+        if (mysqli_num_rows($sql)) {
+            $fetched_data = mysqli_fetch_assoc($sql);
+        }
+
+    }
+    if (empty($fetched_data)) {
+        return array();
+    }
+    return $fetched_data;
+}
+function Wo_TemplateCategories($page_id = 0) {
+    global $wo, $sqlConnect, $cache;
+    if (empty($page_id) || !is_numeric($page_id) || $page_id < 0) {
+        return false;
+    }
+    $data           = array();
+    $page_id        = Wo_Secure($page_id);
+    $query_one      = "SELECT * FROM " . T_TEMPLATE_CATEGORY . " WHERE `id` = {$page_id}";
+    $hashed_page_Id = md5($page_id);
+    if ($wo['config']['cacheSystem'] == 1) {
+        $fetched_data = $cache->read($hashed_page_Id . '_PAGE_Data.tmp');
+        if (empty($fetched_data)) {
+            $sql          = mysqli_query($sqlConnect, $query_one);
+            if (mysqli_num_rows($sql)) {
+                $fetched_data = mysqli_fetch_assoc($sql);
+                $cache->write($hashed_page_Id . '_PAGE_Data.tmp', $fetched_data);
+            }
+
+        }
+    } else {
+        $sql          = mysqli_query($sqlConnect, $query_one);
+        if (mysqli_num_rows($sql)) {
+            $fetched_data = mysqli_fetch_assoc($sql);
+        }
+
+    }
+    if (empty($fetched_data)) {
+        return array();
+    }
+    return $fetched_data;
+}
 function Wo_ArtistData($page_id = 0) {
     global $wo, $sqlConnect, $cache;
     if (empty($page_id) || !is_numeric($page_id) || $page_id < 0) {

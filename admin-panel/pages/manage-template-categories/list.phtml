@@ -1,0 +1,30 @@
+<tr class="setting-pagelist" id="PageID_<?php echo $wo['pagelist']['id'] ?>"
+    data-page-id="<?php echo $wo['pagelist']['id'] ?>" data_selected="<?php echo $wo['pagelist']['id'] ?>">
+    <td><input type="checkbox" id="check-data-<?php echo $wo['pagelist']['id'] ?>"
+               class="delete-checkbox filled-in"><label
+                for="check-data-<?php echo $wo['pagelist']['id'] ?>"></label></td>
+
+    <td><?php echo $wo['pagelist']['id']; ?></td>
+
+    <td>
+        <?php echo $wo['pagelist']['name']; ?>
+    </td>
+    <td>
+        <?php echo $wo['pagelist']['template_type']; ?>
+    </td>
+    <td>
+        <span class=" <?php echo $wo['pagelist']['status'] == 1 ? "btn bg-info" : "btn bg-danger"; ?> admn_table_btn">
+            <i class="fa <?php echo $wo['pagelist']['status'] == 1 ? "fa-eye" : "fa-eye-slash"; ?>"></i>
+        </span>
+    </td>
+    <td>
+        <!--      <a target = "_blank" class="btn bg-info admn_table_btn" href="-->
+        <?php //echo Wo_LoadAdminLinkSettings('edit-team-pages?edit=1'); ?><!--">Edit</a>-->
+        <button onclick="Wo_EditPage(<?php echo $wo['pagelist']['id'] ?>,'hide');" type="button" title="Edit"
+                class="btn bg-info admn_table_btn"><i class="fa fa-edit"></i>
+        </button>
+        <button onclick="Wo_DeletePage(<?php echo $wo['pagelist']['id'] ?>,'hide');" type="button" title="Delete"
+                class="btn bg-danger admn_table_btn"> <i class="fa fa-trash"></i>
+        </button>
+    </td>
+</tr>

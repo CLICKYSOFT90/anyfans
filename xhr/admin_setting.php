@@ -3017,8 +3017,8 @@ if ($f == 'admin_setting' and (Wo_IsAdmin() || Wo_IsModerator())) {
                             <div class="form-line">
                                 <label class="form-label">Influencer Category:</label>
                                 <select required class="form-control platform_category" name="influencer_category">' .
-                                    $option
-                                . '</select>
+            $option
+            . '</select>
                             </div>
                         </div>
                         <div class="form-group form-float">
@@ -3039,7 +3039,7 @@ if ($f == 'admin_setting' and (Wo_IsAdmin() || Wo_IsModerator())) {
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <label class="form-label">Facebook:</label>
-                                <input type="checkbox" class="" name="facebook" '.$fb.'>
+                                <input type="checkbox" class="" name="facebook" ' . $fb . '>
                             </div>
                         </div>
                     </div>
@@ -3047,7 +3047,7 @@ if ($f == 'admin_setting' and (Wo_IsAdmin() || Wo_IsModerator())) {
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <label class="form-label">Youtube:</label>
-                                <input type="checkbox" class="" name="youtube" '.$yt.'>
+                                <input type="checkbox" class="" name="youtube" ' . $yt . '>
                             </div>
                         </div>
                     </div>
@@ -3055,7 +3055,7 @@ if ($f == 'admin_setting' and (Wo_IsAdmin() || Wo_IsModerator())) {
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <label class="form-label">Tiktok:</label>
-                                <input type="checkbox" class="" name="tiktok" '.$tt.'>
+                                <input type="checkbox" class="" name="tiktok" ' . $tt . '>
                             </div>
                         </div>
                     </div>
@@ -3584,16 +3584,16 @@ if ($f == 'admin_setting' and (Wo_IsAdmin() || Wo_IsModerator())) {
                             <div class="form-line">
                                 <label class="form-label">Genre:</label>
                                 <select class="form-control" name="platform">' .
-                                $genre_option
-                                . '</select>
+            $genre_option
+            . '</select>
                             </div>
                         </div>
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <label class="form-label">Artist/Band Category:</label>
                                 <select required class="form-control" name="artist_category">' .
-                                $option
-                                . '</select>
+            $option
+            . '</select>
                             </div>
                         </div>
                         <div class="form-group form-float">
@@ -3614,7 +3614,7 @@ if ($f == 'admin_setting' and (Wo_IsAdmin() || Wo_IsModerator())) {
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <label class="form-label">Facebook:</label>
-                                <input type="checkbox" class="" name="facebook" '.$fb.'>
+                                <input type="checkbox" class="" name="facebook" ' . $fb . '>
                             </div>
                         </div>
                     </div>
@@ -3622,7 +3622,7 @@ if ($f == 'admin_setting' and (Wo_IsAdmin() || Wo_IsModerator())) {
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <label class="form-label">Youtube:</label>
-                                <input type="checkbox" class="" name="youtube" '.$yt.'>
+                                <input type="checkbox" class="" name="youtube" ' . $yt . '>
                             </div>
                         </div>
                     </div>
@@ -3630,7 +3630,7 @@ if ($f == 'admin_setting' and (Wo_IsAdmin() || Wo_IsModerator())) {
                         <div class="form-group form-float">
                             <div class="form-line">
                                 <label class="form-label">Tiktok:</label>
-                                <input type="checkbox" class="" name="tiktok" '.$tt.'>
+                                <input type="checkbox" class="" name="tiktok" ' . $tt . '>
                             </div>
                         </div>
                     </div>
@@ -3725,6 +3725,262 @@ if ($f == 'admin_setting' and (Wo_IsAdmin() || Wo_IsModerator())) {
         echo json_encode($data);
         exit();
     }
+
+    //Add Template Categories
+    if ($s == 'add_template_categories') {
+        if (empty($_POST['cat_name'])) {
+            $data['status'] = 400;
+            $data['message'] = "Name is required";
+            header("Content-type: application/json");
+            echo json_encode($data);
+            exit();
+        }
+        if ($_POST['temp_type'] == '0') {
+            $data['status'] = 400;
+            $data['message'] = "Please select template type";
+            header("Content-type: application/json");
+            echo json_encode($data);
+            exit();
+        }
+
+        $insert_data = [
+            'name' => $_POST['cat_name'],
+            'template_type' => $_POST['temp_type'],
+            'slug' => url_slug($_POST['cat_name']),
+            'status' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ];
+        $lastinsertedId = $db->insert(T_TEMPLATE_CATEGORY, $insert_data);
+        $data['status'] = 200;
+        $data['message'] = 'Template Category added successfully';
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+    //Edit Template Categories
+    if ($s == 'edit_template_categories') {
+        if (empty($_POST['cat_name'])) {
+            $data['status'] = 400;
+            $data['message'] = "Name is required";
+            header("Content-type: application/json");
+            echo json_encode($data);
+            exit();
+        }
+        if ($_POST['temp_type'] == '0') {
+            $data['status'] = 400;
+            $data['message'] = "Please select template type";
+            header("Content-type: application/json");
+            echo json_encode($data);
+            exit();
+        }
+
+        $insert_data = [
+            'name' => $_POST['cat_name'],
+            'template_type' => $_POST['temp_type'],
+            'slug' => url_slug($_POST['cat_name']),
+            'status' => $_POST['status'],
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ];
+        $lastinsertedId = $db->where('id', $_POST['id'])->update(T_TEMPLATE_CATEGORY, $insert_data);
+        $data['status'] = 200;
+        $data['message'] = 'Template Category Updated successfully';
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+    //Get Template Categories
+    if ($s == 'get_template_categories' && isset($_GET['id'])) {
+        $option = array();
+        $data = Wo_GetTemplateCategories($_GET['id']);
+        $count = 0;
+        $status_enabled = $data['status'] == 1 ? 'checked' : '';
+        $status_disabled = $data['status'] == 0 ? 'checked' : '';
+        $tmp_type_lists = [
+            'artist' => 'Artist',
+            'influencer' => 'Influencer',
+            'athletes' => 'Athletes',
+            'entertainment' => 'Entertainment',
+            'lifestyle' => 'Lifestyle',
+            'social-media-follows' => 'Social Media Follows',
+            'social-media-religious' => 'Social Media Religious',
+        ];
+        foreach ($tmp_type_lists as $key => $tmp_type_list){
+            $selected = $key == $data['template_type'] ? 'selected' : '';
+            $list .= '<option value="'.$key.'" '.$selected.'>'.$tmp_type_list.'</option>';
+        }
+        $html = '<div class="row">
+                    <input type="hidden" value="' . $data['id'] . '" name="id">
+                    <div class="col-md-12" id="normal-query-form">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <label class="form-label">Name:</label>
+                                <input type="text" required class="form-control" name="cat_name" value="' . $data['name'] . '">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="normal-query-form">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <label class="form-label">Template Type:</label>
+                                <select class="form-control" name="temp_type" required>
+                                    <option value="0" disabled selected>Select Type</option>
+                                    '.$list.'
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="normal-query-form">
+                        <label for="profile_privacy">Status</label>
+                        <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status-enabled" value="1" ' . $status_enabled . '>
+                                <label class="form-check-label" for="status-enabled">Enabled</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status-disabled" value="0" ' . $status_disabled . '>
+                                <label class="form-check-label" for="status-disabled">Disabled</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+//        header("Content-type: application/json");
+        echo $html;
+        exit();
+    }
+    //Remove Template Category
+    if ($s == 'remove_template_category') {
+        if (!empty($_POST['ids'])) {
+            foreach ($_POST['ids'] as $key => $value) {
+                if (!empty($value) && is_numeric($value) && $value > 0) {
+                    Wo_DeleteTemplateCategory($value);
+                }
+            }
+            $data = ['status' => 200];
+            header("Content-type: application/json");
+            echo json_encode($data);
+            exit();
+        }
+    }
+    //Delete Template Category
+    if ($s == 'delete_template_category' && isset($_GET['id'])) {
+        if (Wo_DeleteTemplateCategory($_GET['id']) === true) {
+            $data['status'] = 200;
+        }
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+
+
+    //Add Genre
+    if ($s == 'add_genre') {
+        if (empty($_POST['gen_name'])) {
+            $data['status'] = 400;
+            $data['message'] = "Genre is required";
+            header("Content-type: application/json");
+            echo json_encode($data);
+            exit();
+        }
+
+        $insert_data = [
+            'name' => $_POST['gen_name'],
+            'slug' => url_slug($_POST['gen_name']),
+            'status' => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ];
+        $lastinsertedId = $db->insert(T_GENRE, $insert_data);
+        $data['status'] = 200;
+        $data['message'] = 'Genre added successfully';
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+    //Edit Genre
+    if ($s == 'edit_genre') {
+        if (empty($_POST['gen_name'])) {
+            $data['status'] = 400;
+            $data['message'] = "Genre is required";
+            header("Content-type: application/json");
+            echo json_encode($data);
+            exit();
+        }
+        $insert_data = [
+            'name' => $_POST['gen_name'],
+            'slug' => url_slug($_POST['gen_name']),
+            'status' => $_POST['status'],
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ];
+        $lastinsertedId = $db->where('id', $_POST['id'])->update(T_GENRE, $insert_data);
+        $data['status'] = 200;
+        $data['message'] = 'Genre Updated successfully';
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+    //Get Single Genre
+    if ($s == 'get_genre' && isset($_GET['id'])) {
+        $option = array();
+        $data = Wo_GetGenre($_GET['id']);
+        $count = 0;
+        $status_enabled = $data['status'] == 1 ? 'checked' : '';
+        $status_disabled = $data['status'] == 0 ? 'checked' : '';
+        $html = '<div class="row">
+                    <input type="hidden" value="' . $data['id'] . '" name="id">
+                    <div class="col-md-12" id="normal-query-form">
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <label class="form-label">Name:</label>
+                                <input type="text" required class="form-control" name="gen_name" value="' . $data['name'] . '">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="normal-query-form">
+                        <label for="profile_privacy">Status</label>
+                        <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status-enabled" value="1" ' . $status_enabled . '>
+                                <label class="form-check-label" for="status-enabled">Enabled</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status" id="status-disabled" value="0" ' . $status_disabled . '>
+                                <label class="form-check-label" for="status-disabled">Disabled</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+//        header("Content-type: application/json");
+        echo $html;
+        exit();
+    }
+    //Remove Genre
+    if ($s == 'remove_genre') {
+        if (!empty($_POST['ids'])) {
+            foreach ($_POST['ids'] as $key => $value) {
+                if (!empty($value) && is_numeric($value) && $value > 0) {
+                    Wo_DeleteGenre($value);
+                }
+            }
+            $data = ['status' => 200];
+            header("Content-type: application/json");
+            echo json_encode($data);
+            exit();
+        }
+    }
+    //Delete Template Category
+    if ($s == 'delete_genre' && isset($_GET['id'])) {
+        if (Wo_DeleteGenre($_GET['id']) === true) {
+            $data['status'] = 200;
+        }
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+    }
+
+
     if ($s == 'filter_all_users') {
         $html = '';
         $after = (isset($_GET['after_user_id']) && is_numeric($_GET['after_user_id']) && $_GET['after_user_id'] > 0) ? $_GET['after_user_id'] : 0;
@@ -4953,7 +5209,7 @@ if ($s == 'vote_now') {
     if (!empty($artist_info)) {
         //Check did logged in user has voted or not
         $user_voted = Wo_UserVotedArtist($wo['user']['user_id'], $artist_info['page_id'], 0);
-        if(!empty($user_voted) && $user_voted['vote_type'] == 0 && $wo['user']['superfan_package'] == 0){
+        if (!empty($user_voted) && $user_voted['vote_type'] == 0 && $wo['user']['superfan_package'] == 0) {
             //Logged-in user voted this artist
             $data = array(
                 'status' => 400,
@@ -5012,8 +5268,8 @@ if ($s == 'again_vote_now') {
     $facility_package = unserialize($package['facility']);
     if (!empty($artist_info)) {
         //Check did logged in user has voted or not
-        $user_voted = Wo_UserVotedArtist($wo['user']['user_id'], $artist_info['page_id'],0);
-        if($user_voted && $user_voted[0]['vote_type'] == 1){
+        $user_voted = Wo_UserVotedArtist($wo['user']['user_id'], $artist_info['page_id'], 0);
+        if ($user_voted && $user_voted[0]['vote_type'] == 1) {
             $data = array(
                 'status' => 400,
                 'message' => 'You have already ranked this artist.'
@@ -5024,9 +5280,9 @@ if ($s == 'again_vote_now') {
         }
         //Get Latest package
         $user_last_package = GetUserPackageLogs($wo['user']['user_id']);
-        if($user_last_package && $user_last_package[0]['expired_at'] > date('Y-m-d')){
+        if ($user_last_package && $user_last_package[0]['expired_at'] > date('Y-m-d')) {
             if ($user_last_package[0]['votes'] < $facility_package['votes'] || $user_last_package[0]['likes'] < $facility_package['likes']) {
-                if(($ranks['id'] == 1 || $ranks['id'] == 2 ||$ranks['id'] == 3) && $user_last_package[0]['votes'] == $facility_package['votes']){
+                if (($ranks['id'] == 1 || $ranks['id'] == 2 || $ranks['id'] == 3) && $user_last_package[0]['votes'] == $facility_package['votes']) {
                     $data = array(
                         'status' => 400,
                         'message' => 'You have consumed your votes now you can only use likes.'
@@ -5035,7 +5291,7 @@ if ($s == 'again_vote_now') {
                     echo json_encode($data);
                     exit();
                 }
-                if($user_last_package[0]['likes'] == $facility_package['likes']){
+                if ($user_last_package[0]['likes'] == $facility_package['likes']) {
                     $data = array(
                         'status' => 400,
                         'message' => 'You have consumed your likes now you can only vote.'
@@ -5059,22 +5315,22 @@ if ($s == 'again_vote_now') {
                 ];
                 if (InsertTemplateRanking($ranking_data, T_Artist_RANKING)) {
                     //Insert vote/likes info in package_logs table
-                    if($ranks['id'] == 1 ||$ranks['id'] == 2 ||$ranks['id'] == 3){
+                    if ($ranks['id'] == 1 || $ranks['id'] == 2 || $ranks['id'] == 3) {
                         $update['votes'] = $user_last_package[0]['votes'] + 1;
-                    } else{
+                    } else {
                         $update['likes'] = $user_last_package[0]['likes'] + 1;
                     }
                     $lastinsertedId = $db->where('id', $user_last_package[0]['id'])->update(T_PACKAGES_LOGS, $update);
 //                        UpdatePackageLogs($update, $user_last_package[0]['id']);
                     $data = array(
                         'status' => 200,
-                        'message' => 'You currently have <b>' . $artist_info['name'] . '</b> ranked '.$ranks['name'].' in this category'
+                        'message' => 'You currently have <b>' . $artist_info['name'] . '</b> ranked ' . $ranks['name'] . ' in this category'
                     );
                     header("Content-type: application/json");
                     echo json_encode($data);
                     exit();
                 }
-            } else{
+            } else {
                 $Update_data = [
                     'superfan_package' => 0
                 ];
@@ -5087,7 +5343,7 @@ if ($s == 'again_vote_now') {
                 echo json_encode($data);
                 exit();
             }
-        }else {
+        } else {
             $data = array(
                 'status' => 200,
                 'message' => 'Please purchase the superfan package first.'
@@ -5136,8 +5392,7 @@ if ($s == 'purchase_package') {
                     header("Content-type: application/json");
                     echo json_encode($data);
                     exit();
-                }
-                else{
+                } else {
                     $remaining_balanace = $wo['user']['wallet'] - $package['amount'];
                     $Update_data = [
                         'wallet' => $remaining_balanace,
@@ -5159,7 +5414,7 @@ if ($s == 'purchase_package') {
                         InsertPackageLogs($logs);
                         $data = array(
                             'status' => 200,
-                            'message' => 'Package purchased! Now you can '.$facility_package['votes'].' votes per category and upto '.$facility_package['likes'].' Likes'
+                            'message' => 'Package purchased! Now you can ' . $facility_package['votes'] . ' votes per category and upto ' . $facility_package['likes'] . ' Likes'
                         );
                         header("Content-type: application/json");
                         echo json_encode($data);
@@ -5196,7 +5451,7 @@ if ($s == 'purchase_package') {
                     InsertPackageLogs($logs);
                     $data = array(
                         'status' => 200,
-                        'message' => 'Package purchased! Now you can '.$facility_package['votes'].' votes per category and upto '.$facility_package['likes'].' Likes'
+                        'message' => 'Package purchased! Now you can ' . $facility_package['votes'] . ' votes per category and upto ' . $facility_package['likes'] . ' Likes'
                     );
                     header("Content-type: application/json");
                     echo json_encode($data);
@@ -5232,7 +5487,7 @@ if ($s == 'user_upload_images') {
         exit();
     }
     $user_last_package = GetUserPackageLogs($wo['user']['user_id']);
-    if($user_last_package && $user_last_package[0]['expired_at'] > date('Y-m-d')) {
+    if ($user_last_package && $user_last_package[0]['expired_at'] > date('Y-m-d')) {
 //            if ($user_last_package[0]['image_upload'] < $facility_package['image_upload']) {
         if (!empty($_FILES["user-upload-file"])) {
             $file_temp_name = $_FILES["user-upload-file"]["tmp_name"];
@@ -5274,7 +5529,7 @@ if ($s == 'user_upload_images') {
 //                echo json_encode($data);
 //                exit();
 //            }
-    } else{
+    } else {
         $data = array(
             'status' => 200,
             'message' => 'Please purchase the superfan package first.'
@@ -5287,7 +5542,7 @@ if ($s == 'user_upload_images') {
 
 if ($s == 'template_comment') {
     $comment = Wo_Secure($_POST['comment']);
-    if(empty($comment)){
+    if (empty($comment)) {
         $data = array(
             'status' => 400,
             'message' => 'Comment is required.'
@@ -5307,18 +5562,18 @@ if ($s == 'template_comment') {
             'updated_at' => date('Y-m-d H:i:s')
         ];
         $lastinsertedId = $db->insert(T_TEMPLATE_COMMENTS, $add_data);
-        if($lastinsertedId){
+        if ($lastinsertedId) {
             $html = '<div class="comment comment-container" id="comment">
                                             <a class="pull-left" href="javascript:;">
                                                 <img class="avatar pull-left"
-                                                     src="'.$wo['user']['avatar'].'"
+                                                     src="' . $wo['user']['avatar'] . '"
                                                      alt="avatar">
                                             </a>
                                             <div class="comment-body">
                                                 <div class="comment-heading">
                                                    <span>
                                                       <a href="javascript:;">
-                                                         <h4 class="user">'.$wo['user']['first_name'].' '. $wo['user']['last_name'].'</h4>
+                                                         <h4 class="user">' . $wo['user']['first_name'] . ' ' . $wo['user']['last_name'] . '</h4>
                                                       </a>
                                                    </span>
                                                     <div class="pull-right comment-options comment_edele_options">
@@ -5344,7 +5599,7 @@ if ($s == 'template_comment') {
                                                          </svg>
                                                       </span>
                                                     </div>
-                                                    <div class="comment-text" style="max-height: none;">'.$comment.'</div>
+                                                    <div class="comment-text" style="max-height: none;">' . $comment . '</div>
                                                     <div class="clear"></div>
                                                 </div>
                                             </div>
@@ -5359,7 +5614,7 @@ if ($s == 'template_comment') {
             echo json_encode($data);
             exit();
         }
-    } else{
+    } else {
         $data = array(
             'status' => 400,
             'message' => 'No Artist Found!'
@@ -5379,7 +5634,7 @@ if ($s == 'vote_now_influencer') {
     if (!empty($influencer_info)) {
         //Check did logged in user has voted or not
         $user_voted = Wo_UserVotedInfluencer($wo['user']['user_id'], $influencer_info['page_id'], 0);
-        if(!empty($user_voted) && $user_voted['vote_type'] == 0 && $wo['user']['superfan_package'] == 0){
+        if (!empty($user_voted) && $user_voted['vote_type'] == 0 && $wo['user']['superfan_package'] == 0) {
             //Logged-in user voted this artist
             $data = array(
                 'status' => 400,
@@ -5408,7 +5663,7 @@ if ($s == 'vote_now_influencer') {
             InsertTemplateRanking($ranking_data, T_INFLUENCER_RANKING);
             $data = array(
                 'status' => 200,
-                'message' => 'You currently have <b>'. $influencer_info['name'] .'</b> ranked 1st in this category <br>
+                'message' => 'You currently have <b>' . $influencer_info['name'] . '</b> ranked 1st in this category <br>
                     Sign up to be a SuperFan for $5.99 a month <br>
                     to vote for both and get three votes per category and upto 10 Likes',
                 'occurence' => 'first'
@@ -5436,8 +5691,8 @@ if ($s == 'again_vote_now_influencer') {
     $facility_package = unserialize($package['facility']);
     if (!empty($influencer_info)) {
         //Check did logged in user has voted or not
-        $user_voted = Wo_UserVotedInfluencer($wo['user']['user_id'], $influencer_info['page_id'],0);
-        if($user_voted && $user_voted[0]['vote_type'] == 1){
+        $user_voted = Wo_UserVotedInfluencer($wo['user']['user_id'], $influencer_info['page_id'], 0);
+        if ($user_voted && $user_voted[0]['vote_type'] == 1) {
             $data = array(
                 'status' => 400,
                 'message' => 'You have already ranked this influencer.'
@@ -5448,9 +5703,9 @@ if ($s == 'again_vote_now_influencer') {
         }
         //Get Latest package
         $user_last_package = GetUserPackageLogs($wo['user']['user_id']);
-        if($user_last_package && $user_last_package[0]['expired_at'] > date('Y-m-d')){
+        if ($user_last_package && $user_last_package[0]['expired_at'] > date('Y-m-d')) {
             if ($user_last_package[0]['votes'] < $facility_package['votes'] || $user_last_package[0]['likes'] < $facility_package['likes']) {
-                if(($ranks['id'] == 1 || $ranks['id'] == 2 ||$ranks['id'] == 3) && $user_last_package[0]['votes'] == $facility_package['votes']){
+                if (($ranks['id'] == 1 || $ranks['id'] == 2 || $ranks['id'] == 3) && $user_last_package[0]['votes'] == $facility_package['votes']) {
                     $data = array(
                         'status' => 400,
                         'message' => 'You have consumed your votes now you can only use likes.'
@@ -5459,7 +5714,7 @@ if ($s == 'again_vote_now_influencer') {
                     echo json_encode($data);
                     exit();
                 }
-                if($user_last_package[0]['likes'] == $facility_package['likes']){
+                if ($user_last_package[0]['likes'] == $facility_package['likes']) {
                     $data = array(
                         'status' => 400,
                         'message' => 'You have consumed your likes now you can only vote.'
@@ -5482,22 +5737,22 @@ if ($s == 'again_vote_now_influencer') {
                 ];
                 if (InsertTemplateRanking($ranking_data, T_INFLUENCER_RANKING)) {
                     //Insert vote/likes info in package_logs table
-                    if($ranks['id'] == 1 ||$ranks['id'] == 2 ||$ranks['id'] == 3){
+                    if ($ranks['id'] == 1 || $ranks['id'] == 2 || $ranks['id'] == 3) {
                         $update['votes'] = $user_last_package[0]['votes'] + 1;
-                    } else{
+                    } else {
                         $update['likes'] = $user_last_package[0]['likes'] + 1;
                     }
                     $lastinsertedId = $db->where('id', $user_last_package[0]['id'])->update(T_PACKAGES_LOGS, $update);
 //                        UpdatePackageLogs($update, $user_last_package[0]['id']);
                     $data = array(
                         'status' => 200,
-                        'message' => 'You currently have <b>' . $influencer_info['name'] . '</b> ranked '.$ranks['name'].' in this category'
+                        'message' => 'You currently have <b>' . $influencer_info['name'] . '</b> ranked ' . $ranks['name'] . ' in this category'
                     );
                     header("Content-type: application/json");
                     echo json_encode($data);
                     exit();
                 }
-            } else{
+            } else {
                 $Update_data = [
                     'superfan_package' => 0
                 ];
@@ -5510,7 +5765,7 @@ if ($s == 'again_vote_now_influencer') {
                 echo json_encode($data);
                 exit();
             }
-        }else {
+        } else {
             $data = array(
                 'status' => 200,
                 'message' => 'Please purchase the superfan package first.'
@@ -5546,7 +5801,7 @@ if ($s == 'user_upload_images_influencer') {
         exit();
     }
     $user_last_package = GetUserPackageLogs($wo['user']['user_id']);
-    if($user_last_package && $user_last_package[0]['expired_at'] > date('Y-m-d')) {
+    if ($user_last_package && $user_last_package[0]['expired_at'] > date('Y-m-d')) {
 //            if ($user_last_package[0]['image_upload'] < $facility_package['image_upload']) {
         if (!empty($_FILES["user-upload-file"])) {
             $file_temp_name = $_FILES["user-upload-file"]["tmp_name"];
@@ -5588,7 +5843,7 @@ if ($s == 'user_upload_images_influencer') {
 //                echo json_encode($data);
 //                exit();
 //            }
-    } else{
+    } else {
         $data = array(
             'status' => 200,
             'message' => 'Please purchase the superfan package first.'

@@ -72,7 +72,7 @@
                                 Your Artist <br>
                                 <?php foreach ($wo['data'] as $cat_list) { ?>
                                     <?php if($cat_list['voted_user'] == $wo['user']['user_id'] && $cat_list['soft_delete'] == 0){ ?>
-                                        <a href="<?php echo $wo['site_url'] . '/artist/rank?id=' . $cat_list['page_id'] ?>">
+                                        <a href="<?php echo $wo['site_url'] . '/artist/rank?id=' . $cat_list['page_id'] ?>" style="text-decoration: none;">
                                             <b><?php echo $cat_list['name'] ?></b>
                                         </a>
                                     <?php } else{ ?>

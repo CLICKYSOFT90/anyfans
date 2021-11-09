@@ -65,7 +65,7 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
                             <div class=" edit_category_form_alert"></div>
                             <form method="POST" id="add_teampage_form">
                                 <div class="row">
-                                    <div class="col-md-6" id="normal-query-form">
+                                    <div class="col-md-12" id="normal-query-form">
                                         <div class="form-group form-float">
                                             <div class="form-line">
                                                 <label class="form-label">Profile Image</label>
@@ -74,7 +74,7 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6" id="normal-query-form">
+                                    <div class="col-md-12" id="normal-query-form">
                                         <div class="form-group form-float">
                                             <div class="form-line">
                                                 <label class="form-label">Date</label>
@@ -186,7 +186,7 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6" id="normal-query-form">
+                                    <div class="col-md-12" id="normal-query-form">
                                         <div class="form-group form-float">
                                             <div class="form-line">
                                                 <label class="form-label">Sources:</label>
@@ -194,7 +194,7 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6" id="normal-query-form">
+                                    <div class="col-md-12" id="normal-query-form">
                                         <div class="form-group form-float">
                                             <div class="form-line">
                                                 <label class="form-label">Date:</label>
@@ -248,7 +248,7 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6" id="normal-query-form">
+                                    <div class="col-md-10" id="normal-query-form">
                                         <div class="form-group form-float">
                                             <div class="form-line">
                                                 <label class="form-label">Photo Credit:</label>
@@ -257,7 +257,7 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6" id="normal-query-form">
+                                    <div class="col-md-10" id="normal-query-form">
                                         <div class="form-group form-float">
                                             <div class="form-line">
                                                 <label class="form-label">Image Capture Date:</label>
@@ -295,7 +295,7 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
                                         <div class="form-group form-float">
                                             <div class="form-line">
                                                 <label class="form-label search-form">
-                                                    Search for ID, Name, Insta handle.
+                                                    Search for ID, Name, Insta handle
                                                 </label>
                                                 <input type="text" name="query" id="query" class="form-control"
                                                        value="<?php echo($filter_keyword); ?>">
@@ -422,13 +422,13 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModal1Label">Delete page?</h5>
+                    <h5 class="modal-title" id="exampleModal1Label">Delete Influencer?</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Are you sure that you want to remove the selected page?
+                    Are you sure that you want to remove the selected influencer?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -444,13 +444,13 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModal1Label">Delete page?</h5>
+                    <h5 class="modal-title" id="exampleModal1Label">Delete Influencer?</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to delete this page?
+                    Are you sure you want to delete this influencer?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -511,39 +511,43 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
                 ((''+day).length<2 ? '0' : '') + day;
             var attr = $(this).data('add');
             var copied_div = '<div class="row">'+
-                '<div class="col-md-12" id="normal-query-form">'+
-                '<div class="form-group form-float">'+
-                '<div class="form-line">'+
-                '<input type="file" required class="form-control" name="gallery[]" accept="image/*">'+
-                '</div>'+
-                '</div>'+
-                '</div>'+
-                '<div class="col-md-5" id="normal-query-form">'+
-                '<div class="form-group form-float">'+
-                '<div class="form-line">'+
-                '<label class="form-label">Photo Credit:</label>'+
-                '<input type="text" required class="form-control" name="photo_credit[]">'+
-                '</div>'+
-                '</div>'+
-                '</div>'+
-                '<div class="col-md-5" id="normal-query-form">'+
-                '<div class="form-group form-float">'+
-                '<div class="form-line">'+
-                '<label class="form-label">Image Capture Date:</label>'+
-                '<input type="date" required class="form-control" name="image_capture_date[]" value="'+output+'" placeholder="mm-dd-yy">'+
-                '</div>'+
-                '</div>'+
-                '</div>'+
-                '<div class="col-md-2 text-center">'+
-                '<i class="fa fa-times delete-row" title="Click to delete" style="cursor: pointer;margin-top: 40px;"></i>'+
-                '</div>'+
-                '</div>';
+                                '<div class="col-md-12" id="normal-query-form">'+
+                                    '<div class="form-group form-float">'+
+                                        '<div class="form-line">'+
+                                            '<input type="file" required class="form-control" name="gallery[]" accept="image/*">'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                                '<div class="row"> ' +
+                                    '<div class="col-md-10"> ' +
+                                            '<div class="form-group form-float">'+
+                                                '<div class="form-line">'+
+                                                    '<label class="form-label">Photo Credit:</label>'+
+                                                    '<input type="text" required class="form-control" name="photo_credit[]">'+
+                                                '</div>'+
+                                            '</div>'+
+                                            '<div class="form-group form-float">'+
+                                                '<div class="form-line">'+
+                                                    '<label class="form-label">Image Capture Date:</label>'+
+                                                    '<input type="date" required class="form-control" name="image_capture_date[]" value="'+output+'" placeholder="mm-dd-yy">'+
+                                                '</div>'+
+                                            '</div>'+
+                                    '</div>'+
+                                    '<div class="col-md-2"> ' +
+                                        '<div class=""> ' +
+                                            '<div class="">'+
+                                                '<i class="fa fa-times delete-row" title="Click to delete" style="cursor: pointer;margin-top: 40px;"></i>'+
+                                            '</div> ' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>'+
+                            '</div>';
             $('#'+attr).append(copied_div);
             $('.layout-wrapper .content-wrapper .content-body .content').niceScroll().resize();
         })
 
         $(document.body).on('click', '.delete-row', function () {
-            $(this).parent().parent().remove()
+            $(this).parent().parent().parent().parent().parent().remove();
         });
 
         var add_category_form = $('form#add_teampage_form');
@@ -669,10 +673,13 @@ if (($page > $db->totalPages) && !empty($_GET['page-id'])) {
         }
 
         function DeleteGalleryImage(id){
-            var id = id;
-            $.post(Wo_Ajax_Requests_File() + "?f=admin_setting&s=remove_influencer_gallery_image", {id: id}, function () {
-                $('body .remove-'+id).remove();
-            });
+            if (confirm("Are you sure you want to delete?")) {
+                var id = id;
+                $.post(Wo_Ajax_Requests_File() + "?f=admin_setting&s=remove_influencer_gallery_image", {id: id}, function () {
+                    $('body .remove-'+id).remove();
+                });
+            }
+            return false;
         }
 
     </script>

@@ -100,7 +100,7 @@ if ($type == 'timeline' && $wo['loggedin'] == true) {
        $con2 = 0;
        if (!isset($came_from)) {
            header("Location: " . $wo['config']['site_url']);
-           exit(); 
+           exit();
        } else {
            Wo_RedirectSmooth(Wo_SeoLink('index.php?link1=404'));
        }

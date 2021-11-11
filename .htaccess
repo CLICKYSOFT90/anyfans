@@ -198,6 +198,8 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^setting/([A-Za-z0-9_-]+)$  index.php?link1=setting&page=$1 [NC,QSA]
 
+
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^@([^\/]+)(\/|)$  index.php?link1=timeline&u=$1 [QSA]

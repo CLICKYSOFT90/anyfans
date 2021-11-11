@@ -80,7 +80,14 @@
         ?>
         <div class="col-md-6">
             <form id="login" class="fadeInUp animated animated_9" method="post">
-                <p class="title"><?php echo $wo['lang']['login'] ?></p>
+                <div class="title">
+                    <?php echo $wo['lang']['login'] ?>
+                    <div class="pull-right">
+                        <a href="<?php echo $wo['config']['site_url'];?>">
+                            <img width="114px" src="<?php echo $wo['config']['theme_url'];?>/img/logo.png" alt="Logo">
+                        </a>
+                    </div>
+                </div>
                 <div class="errors"></div>
                 <div class="wow_form_fields">
 <!--                    <label for="username">--><?php //echo $wo['lang']['username'] ?><!--</label>-->

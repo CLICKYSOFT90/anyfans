@@ -4786,6 +4786,7 @@ ul.thumb-Images li {
 .cat-parent li a,
 .cat-child li a{
     color: #000000;
+    font-weight: 500;
 }
 
 .rank-heading h2{
@@ -4819,8 +4820,6 @@ ul.thumb-Images li {
 .cat-listing-box .listing ol li a{
     color: #000000;
     font-size: 13px;
-    line-break: auto;
-    display: flex;
 }
 
 .cat-listing-box .category{

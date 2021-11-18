@@ -4,8 +4,8 @@ if ($wo['loggedin'] == false) {
     exit();
 }
 $wo['data'] = GetArtistCategoryListing();
-$wo['category_listing'] = GetAllCategoryListing();
-$wo['artist_genre'] = GetAllArtistGenre();
+//$wo['category_listing'] = GetAllCategoryListing();
+//$wo['artist_genre'] = GetAllArtistGenre();
 //dd($wo['artist_genre']);
 //$wo['influencers_category'] = GetInfluencerCategoryListing();
 

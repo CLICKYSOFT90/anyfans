@@ -74,7 +74,8 @@ if ($f == 'login') {
             if (!empty($_POST['last_url'])) {
                 $data['location'] = $_POST['last_url'];
             } else {
-                $data['location'] = $wo['config']['site_url'];
+//                $data['location'] = $wo['config']['site_url'];
+                $data['location'] = $wo['config']['site_url'].'/influencer';
             }
             $user_data = Wo_UserData($userid);
             if ($wo['config']['membership_system'] == 1 && $user_data['is_pro'] == 0) {

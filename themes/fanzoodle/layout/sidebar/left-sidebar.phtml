@@ -56,21 +56,21 @@
                     </ul>
                 </div>
             </li>
-            <li>
-                <a href="<?php echo Wo_SeoLink('index.php?link1=albums'); ?>" data-ajax="?link1=albums">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="#8bc34a"
-                              d="M22,16V4A2,2 0 0,0 20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16M11,12L13.03,14.71L16,11L20,16H8M2,6V20A2,2 0 0,0 4,22H18V20H4V6"/>
-                    </svg> <?php echo $wo['lang']['albums']; ?>
-                </a>
-            </li>
-            <li>
-                <a href="<?php echo Wo_SeoLink('index.php?link1=saved-posts'); ?>" data-ajax="?link1=saved-posts">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="#673ab7" d="M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z">
-                    </svg> <?php echo $wo['lang']['saved_posts']; ?>
-                </a>
-            </li>
+<!--            <li>-->
+<!--                <a href="--><?php //echo Wo_SeoLink('index.php?link1=albums'); ?><!--" data-ajax="?link1=albums">-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">-->
+<!--                        <path fill="#8bc34a"-->
+<!--                              d="M22,16V4A2,2 0 0,0 20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16M11,12L13.03,14.71L16,11L20,16H8M2,6V20A2,2 0 0,0 4,22H18V20H4V6"/>-->
+<!--                    </svg> --><?php //echo $wo['lang']['albums']; ?>
+<!--                </a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--                <a href="--><?php //echo Wo_SeoLink('index.php?link1=saved-posts'); ?><!--" data-ajax="?link1=saved-posts">-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">-->
+<!--                        <path fill="#673ab7" d="M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z">-->
+<!--                    </svg> --><?php //echo $wo['lang']['saved_posts']; ?>
+<!--                </a>-->
+<!--            </li>-->
             <?php if ($wo['config']['poke_system'] == 1) { ?>
                 <li>
                     <a href="<?php echo Wo_SeoLink('index.php?link1=poke'); ?>" data-ajax="?link1=poke">
@@ -212,57 +212,145 @@ c7.303,0,13.244,5.941,13.244,13.244S354.988,438,347.685,438H279.244z"/>
                     </a>
                 </li>
             <?php } ?>
+
+            <li>
+                <a href="javascript:;">
+                    <img src="<?php echo $wo['config']['theme_url'].'/img/conversation.png' ?>">
+                    AnyFans Conversations
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="<?php echo $wo['config']['theme_url'].'/img/chat.png' ?>">
+                    Themed Chats
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
+                     Beauty
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <div class="">
+                        <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
+                    </div>
+                    <div class="">
+                        College Campus Corner
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
+                    Crypto Corner
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
+                    Destinations & Travel
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
+                    Fantasy Sports
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
+                    Fitness & Gym Life
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
+                    Greek Life
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
+                    Influencers Corner
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
+                    Style & Fashion
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
+                    Social Media
+                </a>
+            </li>
         </ul>
     </div>
     <div class="u-suggestions left-sidebar">
         <div class="text-center">
-            <label><b>Forget Yelp!</b></label>
-            <p>
-                Rank Your Local<br>
-                Fav's here!
+            <label>Forget Yelp!</label>
+            <p style="font-size: 16px;">
+                <b>Rank Your Local<br>
+                    Fav's here!</b>
             </p>
-            <form>
-                <input type="text" name="zip_code" placeholder="Zip Code">
-            </form>
+            <p style="display: flex; margin-bottom: 0; justify-content: center;">
+                <label style="margin: 4px 10px 0px 0; font-size: 10px;">Your Zip Code:</label>
+                <input type="text" readonly value="77001" class="custom-input form-control">
+            </p>
+            <p class="text-center">
+                <label style="font-size: 10px;">Current location: Austin, TX </label>
+            </p>
         </div>
         <ul>
             <li>
-                <a href="javascript:;" data-ajax="?link1=events">
+                <a href="javascript:;">
+                    <img src="<?php echo $wo['site_url'].'/upload/artist.png' ?>"
+                         class="img-responsive">
+                    <label>Bands/Artists</label>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
                     <img src="<?php echo $wo['site_url'].'/upload/pizza.png' ?>"
                          class="img-responsive">
                     <label>Best Pizza</label>
                 </a>
             </li>
             <li>
-                <a href="javascript:;" data-ajax="?link1=events">
+                <a href="javascript:;">
                     <img src="<?php echo $wo['site_url'].'/upload/burger.png' ?>"
                          class="img-responsive">
                     <label>Best Burger</label>
                 </a>
             </li>
             <li>
-                <a href="javascript:;" data-ajax="?link1=events">
+                <a href="javascript:;">
                     <img src="<?php echo $wo['site_url'].'/upload/disc-jockey.png' ?>"
                          class="img-responsive">
                     <label>Best Night Club</label>
                 </a>
             </li>
             <li>
-                <a href="javascript:;" data-ajax="?link1=events">
+                <a href="javascript:;">
                     <img src="<?php echo $wo['site_url'].'/upload/cannabis.png' ?>"
                          class="img-responsive">
                     <label>Best Cannabis Shop</label>
                 </a>
             </li>
             <li>
-                <a href="javascript:;" data-ajax="?link1=events">
+                <a href="javascript:;">
                     <img src="<?php echo $wo['site_url'].'/upload/influencer.png' ?>"
                          class="img-responsive">
                     <label>Social Media Influencer</label>
                 </a>
             </li>
             <li>
-                <a href="javascript:;" data-ajax="?link1=events">
+                <a href="javascript:;">
                     <img src="<?php echo $wo['site_url'].'/upload/tik-tok.png' ?>"
                          class="img-responsive">
                     <label>Fav Local TikTok Follow</label>
@@ -273,6 +361,13 @@ c7.303,0,13.244,5.941,13.244,13.244S354.988,438,347.685,438H279.244z"/>
         <!--       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>-->
         <!--                    <span class="button-text">All Local Categories</span>-->
         <!--                </button>-->
+        <div class="text-center">
+            <label style="font-size: 12px;">
+                <b>Traveling? Look here for the best
+                    burger, pizza or bar in town, and how
+                    many miles it is from your location! </b>
+            </label>
+        </div>
         <div class="text-center">
             <label style="font-size: 12px;"><b>Local Rankings Launch January 1, 2022</b></label>
         </div>

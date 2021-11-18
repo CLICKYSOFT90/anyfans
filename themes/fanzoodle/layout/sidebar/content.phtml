@@ -32,7 +32,7 @@ if (!empty($user_stories)) {
                     <p>@<?php echo $wo['user']['username'] ?></p>
                 </div>
             </div>
-            <ul class="wo_user_side_info">
+            <ul class="wo_user_side_info text-center">
                 <li>
                     <a class="menu_list"
                        href="<?php echo Wo_SeoLink('index.php?link1=timeline&u=' . $wo['user']['username']); ?>"
@@ -51,23 +51,23 @@ if (!empty($user_stories)) {
                         </a>
                     </li>-->
 
-                    <li>
-                        <a class="menu_list"
-                           href=""
-                           data-ajax="">
-                            <span class="split-link"><b>Artist</b></span>
-                            <span><?php echo $wo['user']['details']['album_count']; ?></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="menu_list"
-                           href="">
-                            <!--                            <span class="split-link"><b>-->
-                            <?php //echo $wo['lang']['friends_btn']; ?><!--</b></span>-->
-                            <span class="split-link"><b>Concerts</b></span>
-                            <span><?php echo $wo['user']['details']['album_count']; ?></span>
-                        </a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a class="menu_list"-->
+<!--                           href=""-->
+<!--                           data-ajax="">-->
+<!--                            <span class="split-link"><b>Artist</b></span>-->
+<!--                            <span>--><?php //echo $wo['user']['details']['album_count']; ?><!--</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a class="menu_list"-->
+<!--                           href="">-->
+<!--                                                        <span class="split-link"><b>-->
+<!--                            --><?php //echo $wo['lang']['friends_btn']; ?><!--</b></span>-->
+<!--                            <span class="split-link"><b>Concerts</b></span>-->
+<!--                            <span>--><?php //echo $wo['user']['details']['album_count']; ?><!--</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
 
                     <li>
                         <a class="menu_list"
@@ -212,7 +212,90 @@ if (!empty($user_stories)) {
                 </ul>
             <?php }
         } ?>
-
+        <ul class="list-group" id="sidebar-user-list-container">
+            <li class="list-group-item text-muted sidebar-title-back" contenteditable="false">
+                Featured Ranking Category of the Week
+            </li>
+            <li class="list-group-item text-muted sidebar-title-back" contenteditable="false"
+                style="line-height: 14px;">
+                <a href="javascript:;">
+                    <small>"Social Media Influencer - Humor"</small>
+                </a>
+            </li>
+            <li class="list-group-item text-muted sidebar-title-back" contenteditable="false">
+                Whats Trending Locally?
+            </li>
+            <li class="list-group-item text-muted sidebar-title-back" contenteditable="false"
+                style="line-height: 14px;">
+                <a href="javascript:;">
+                    <small>Five Guys Burgers</small>
+                </a>
+            </li>
+            <li class="list-group-item text-muted sidebar-title-back" contenteditable="false"
+                style="line-height: 14px;">
+                <small>Trending in Local: Best Burger</small>
+            </li>
+            <li class="list-group-item text-muted sidebar-title-back" contenteditable="false">
+                Trending up & Coming
+            </li>
+            <li class="list-group-item text-muted sidebar-title-back" contenteditable="false">
+                <u>Social Media Influencers</u>
+            </li>
+            <li class="list-group-item text-muted sidebar-title-back" contenteditable="false"
+                style="line-height: 14px;">
+<!--                <small>-->
+<!--                    <a href="javascript:;"> @AnastasiaSouris</a><br>-->
+<!--                    <a href="javascript:;"> Style & Fashion Influencer</a>-->
+<!--                </small>-->
+            </li>
+        </ul>
+        <ul class="list-group" id="sidebar-user-list-container">
+            <li class="list-group-item text-muted sidebar-title-back" contenteditable="false">
+                AnyFans Conversations
+            </li>
+            <li class="list-group-item text-muted " contenteditable="false">
+                <small><b>Recent Podcast Release:</b></small>
+            </li>
+            <li class="list-group-item text-muted " contenteditable="false">
+                <b>Our Sports Content Editor interviews Trending Influencer: <u>Bronny James</u></b>
+            </li>
+        </ul>
+        <ul class="list-group" id="sidebar-user-list-container">
+            <li class="list-group-item text-muted sidebar-title-back" contenteditable="false">
+                Featured Theme of the Week
+            </li>
+            <li class="list-group-item text-muted" contenteditable="false">
+                <b><u>Style & Fashion</u></b>
+            </li>
+            <li class="list-group-item text-muted" contenteditable="false">
+                <small>Join the chat</small>
+            </li>
+        </ul>
+        <ul class="list-group" id="sidebar-user-list-container">
+            <li class="list-group-item text-muted sidebar-title-back" contenteditable="false">
+                SnapShot of your ranked Influencers
+            </li>
+            <li class="list-group-item text-muted " contenteditable="false">
+                <small>
+                    <a href="javascript:;"> <b>1. Logan Paul:</b></a>
+                    <div class="pull-right">
+                        <span class="color-green">Trending</span>
+                    </div>
+                </small><br>
+                <small>
+                    <a href="javascript:;"> <b> 2. Eminem:</b></a>
+                    <div class="pull-right">
+                        <span class="color-yellow">Holding</span>
+                    </div>
+                </small><br>
+                <small>
+                    <a href="javascript:;"> <b>3. Charlie D'Amelio:</b></a>
+                    <div class="pull-right">
+                        <span class="color-green">Trending</span>
+                    </div>
+                </small>
+            </li>
+        </ul>
         <?php
         $users = Wo_UserSug(4);
         if (count($users) != 0) {
@@ -387,34 +470,34 @@ if (!empty($user_stories)) {
             </div>
         <?php endif ?>
 
-        <div id="sidebar-sticky">
-            <?php $activities = Wo_GetActivities(); ?>
-            <ul class="list-group activity-container">
-                <li class="list-group-item text-muted sidebar-title-back"
-                    contenteditable="false"><?php echo $wo['lang']['latest_activities']; ?>
-                    <?php if (count($activities) > 0) { ?>
-                    <span onclick="Wo_GetMoreActivities();" data-toggle="tooltip"
-                          title="<?php echo $wo['lang']['load_more_activities']; ?>"
-                          class="<?php echo Wo_RightToLeft('pull-right'); ?>  refresh">
-                            <i class="fa fa-repeat progress-icon" data-icon="repeat"></i>
-                        </span><?php } ?>
-                </li>
-                <li class="activities-wrapper" id="activities-wrapper">
-                    <?php
-                    if (count($activities) == 0) {
-                        echo '<h2><div class="no-activities text-center">' . $wo['lang']['no_activities'] . '</div><h2>';
-                    } else {
-                        foreach ($activities as $wo['activity']) {
-                            echo Wo_LoadPage('sidebar/activities-list');
-                        }
-                    }
-                    ?>
-                </li>
-                <li>
-                    <div class="no-activities center-text"></div>
-                </li>
-            </ul>
-        </div>
+<!--        <div id="sidebar-sticky">-->
+<!--            --><?php //$activities = Wo_GetActivities(); ?>
+<!--            <ul class="list-group activity-container">-->
+<!--                <li class="list-group-item text-muted sidebar-title-back"-->
+<!--                    contenteditable="false">--><?php //echo $wo['lang']['latest_activities']; ?>
+<!--                    --><?php //if (count($activities) > 0) { ?>
+<!--                    <span onclick="Wo_GetMoreActivities();" data-toggle="tooltip"-->
+<!--                          title="--><?php //echo $wo['lang']['load_more_activities']; ?><!--"-->
+<!--                          class="--><?php //echo Wo_RightToLeft('pull-right'); ?><!--  refresh">-->
+<!--                            <i class="fa fa-repeat progress-icon" data-icon="repeat"></i>-->
+<!--                        </span>--><?php //} ?>
+<!--                </li>-->
+<!--                <li class="activities-wrapper" id="activities-wrapper">-->
+<!--                    --><?php
+//                    if (count($activities) == 0) {
+//                        echo '<h2><div class="no-activities text-center">' . $wo['lang']['no_activities'] . '</div><h2>';
+//                    } else {
+//                        foreach ($activities as $wo['activity']) {
+//                            echo Wo_LoadPage('sidebar/activities-list');
+//                        }
+//                    }
+//                    ?>
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <div class="no-activities center-text"></div>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
 
         <?php if ($wo['config']['user_ads'] == 1): ?>
             <?php

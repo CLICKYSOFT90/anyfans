@@ -215,6 +215,7 @@ if ($f == "update_general_settings") {
                             'email' => $_POST['email'],
                             'birthday' => $age_data,
                             'gender' => $gender,
+                            'zip' => $_POST['zip'],
                             'country_id' => $_POST['country'],
                             'active' => $active,
                             'admin' => $type,

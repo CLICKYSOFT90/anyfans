@@ -5208,12 +5208,13 @@ if ($s == 'vote_now') {
     $ranks = Wo_GetRank($_GET['vote_id']);
     if (!empty($artist_info)) {
         //Check did logged in user has voted or not
-        $user_voted = Wo_UserVotedArtist($wo['user']['user_id'], $artist_info['page_id'], 0);
+        $user_voted = Wo_UserHasVotedArtist($wo['user']['user_id'], 0, 0);
         if (!empty($user_voted) && $user_voted['vote_type'] == 0 && $wo['user']['superfan_package'] == 0) {
-            //Logged-in user voted this artist
+            //Logged-in user voted this artist in this category.
+            $new_artist = Wo_GetArtist($user_voted[0]['artist_id']);
             $data = array(
                 'status' => 400,
-                'message' => 'You currently have <b>' . $artist_info['name'] . '</b> ranked 1st in this category <br>
+                'message' => 'You currently have <b>' . $new_artist['name'] . '</b> ranked 1st in this category <br>
                     Sign up to be a SuperFan for $5.99 a month <br>
                     to vote for both and get three votes per category and upto 10 Likes'
             );
@@ -5222,7 +5223,7 @@ if ($s == 'vote_now') {
             exit();
         } else {
             //First time
-            //Logged-in user not voted this artist
+            //Logged-in user not voted this artist in this category.
             $ranking_data = [
                 'user_id' => $wo['user']['user_id'],
                 'artist_id' => $artist_info['page_id'],
@@ -5633,12 +5634,15 @@ if ($s == 'vote_now_influencer') {
     $ranks = Wo_GetRank($_GET['vote_id']);
     if (!empty($influencer_info)) {
         //Check did logged in user has voted or not
-        $user_voted = Wo_UserVotedInfluencer($wo['user']['user_id'], $influencer_info['page_id'], 0);
+//        $user_voted = Wo_UserVotedInfluencer($wo['user']['user_id'], $influencer_info['page_id'], 0);
+//        $user_voted = Wo_UserVotedInfluencerCategory($wo['user']['user_id'], $influencer_info['influencer_category'], 0);
+        $user_voted = Wo_UserHasVotedInfluencer($wo['user']['user_id'], 0, 0);
         if (!empty($user_voted) && $user_voted['vote_type'] == 0 && $wo['user']['superfan_package'] == 0) {
             //Logged-in user voted this artist
+            $new_influencer = Wo_GetInfluencer($user_voted[0]['influencer_id']);
             $data = array(
                 'status' => 400,
-                'message' => 'You currently have <b>' . $influencer_info['name'] . '</b> ranked 1st in this category <br>
+                'message' => 'You currently have <b>' . $new_influencer['name'] . '</b> ranked 1st in this category <br>
                     Sign up to be a SuperFan for $5.99 a month <br>
                     to vote for both and get three votes per category and upto 10 Likes'
             );
@@ -5852,5 +5856,23 @@ if ($s == 'user_upload_images_influencer') {
         echo json_encode($data);
         exit();
     }
+}
+
+if ($s == 'send_notification') {
+    $notification = array(
+        'full_link' => $wo['site_url'].'/influencer/rank?id='.$_POST['id'],
+        'text' => $wo['user']['first_name'].' '. $wo['user']['last_name']." has requested to change snapshot",
+        'recipients' => [0]
+    );
+//    Wo_RegisterAdminNotification($notification);
+    CustomAdminNotification($notification);
+        $data = array(
+            'status' => 200,
+            'message' => 'Notification has been sent!'
+        );
+        header("Content-type: application/json");
+        echo json_encode($data);
+        exit();
+
 }
 

@@ -835,6 +835,53 @@ function Wo_GetInfluencer($id)
     }
 }
 
+function Wo_GetInfluencersFromRankings($id)
+{
+    $data = array();
+    global $wo, $sqlConnect;
+    if ($wo['loggedin'] == false) {
+        return false;
+    }
+
+    $id = Wo_Secure($id);
+    $query = mysqli_query($sqlConnect, "SELECT *
+                                                FROM " . T_INFLUENCER_RANKING . "
+                                                WHERE `influencer_id` = {$id} group by user_id");
+
+    if (mysqli_num_rows($query)) {
+        $data = [];
+        while ($fetched_data = mysqli_fetch_assoc($query)) {
+            $data[] = $fetched_data;
+        }
+        return $data;
+    } else{
+        return false;
+    }
+}
+function Wo_GetArtistsFromRankings($id)
+{
+    $data = array();
+    global $wo, $sqlConnect;
+    if ($wo['loggedin'] == false) {
+        return false;
+    }
+
+    $id = Wo_Secure($id);
+    $query = mysqli_query($sqlConnect, "SELECT *
+                                                FROM " . T_Artist_RANKING . "
+                                                WHERE `artist_id` = {$id} group by user_id");
+
+    if (mysqli_num_rows($query)) {
+        $data = [];
+        while ($fetched_data = mysqli_fetch_assoc($query)) {
+            $data[] = $fetched_data;
+        }
+        return $data;
+    } else{
+        return false;
+    }
+}
+
 function GetUserPackageLogs($user_id)
 {
     global $sqlConnect, $wo;
@@ -951,6 +998,28 @@ function Wo_UserVotedInfluencer($user_id, $influencer_id, $soft_delete)
 
 }
 
+function Wo_UserVotedInfluencerCategory($user_id, $influencer_category, $soft_delete)
+{
+    $data = array();
+    global $wo, $sqlConnect;
+    if ($wo['loggedin'] == false) {
+        return false;
+    }
+    $user_id = Wo_Secure($user_id);
+    $influencer_category = Wo_Secure($influencer_category);
+    $soft_delete = Wo_Secure($soft_delete);
+    $query = mysqli_query($sqlConnect, "SELECT * FROM ". T_INFLUENCER_RANKING ." where user_id = '{$user_id}' and template_category_id = '{$influencer_category}' and soft_delete = {$soft_delete} ORDER BY id DESC");
+    if (mysqli_num_rows($query)) {
+        while ($fetched_data = mysqli_fetch_assoc($query)) {
+            $data[] = $fetched_data;
+        }
+        return $data;
+    } else{
+        return false;
+    }
+
+}
+
 function Wo_UserVotedArtist($user_id, $artist_id, $soft_delete)
 {
     $data = array();
@@ -962,6 +1031,70 @@ function Wo_UserVotedArtist($user_id, $artist_id, $soft_delete)
     $artist_id = Wo_Secure($artist_id);
     $soft_delete = Wo_Secure($soft_delete);
     $query = mysqli_query($sqlConnect, "SELECT * FROM ". T_Artist_RANKING ." where user_id = '{$user_id}' and artist_id = '{$artist_id}' and soft_delete = {$soft_delete} ORDER BY id DESC");
+    if (mysqli_num_rows($query)) {
+        while ($fetched_data = mysqli_fetch_assoc($query)) {
+            $data[] = $fetched_data;
+        }
+        return $data;
+    } else{
+        return false;
+    }
+
+}
+
+function Wo_UserVotedArtistCategory($user_id, $artist_category_id, $soft_delete)
+{
+    $data = array();
+    global $wo, $sqlConnect;
+    if ($wo['loggedin'] == false) {
+        return false;
+    }
+    $user_id = Wo_Secure($user_id);
+    $artist_category_id = Wo_Secure($artist_category_id);
+    $soft_delete = Wo_Secure($soft_delete);
+    $query = mysqli_query($sqlConnect, "SELECT * FROM ". T_Artist_RANKING ." where user_id = '{$user_id}' and template_category_id = '{$artist_category_id}' and soft_delete = {$soft_delete} ORDER BY id DESC");
+    if (mysqli_num_rows($query)) {
+        while ($fetched_data = mysqli_fetch_assoc($query)) {
+            $data[] = $fetched_data;
+        }
+        return $data;
+    } else{
+        return false;
+    }
+
+}
+function Wo_UserHasVotedArtist($user_id, $vote_type, $soft_delete)
+{
+    $data = array();
+    global $wo, $sqlConnect;
+    if ($wo['loggedin'] == false) {
+        return false;
+    }
+    $user_id = Wo_Secure($user_id);
+    $vote_type = Wo_Secure($vote_type);
+    $soft_delete = Wo_Secure($soft_delete);
+    $query = mysqli_query($sqlConnect, "SELECT * FROM ". T_Artist_RANKING ." where user_id = '{$user_id}' and vote_type = '{$vote_type}' and soft_delete = {$soft_delete} ORDER BY id DESC");
+    if (mysqli_num_rows($query)) {
+        while ($fetched_data = mysqli_fetch_assoc($query)) {
+            $data[] = $fetched_data;
+        }
+        return $data;
+    } else{
+        return false;
+    }
+
+}
+function Wo_UserHasVotedInfluencer($user_id, $vote_type, $soft_delete)
+{
+    $data = array();
+    global $wo, $sqlConnect;
+    if ($wo['loggedin'] == false) {
+        return false;
+    }
+    $user_id = Wo_Secure($user_id);
+    $vote_type = Wo_Secure($vote_type);
+    $soft_delete = Wo_Secure($soft_delete);
+    $query = mysqli_query($sqlConnect, "SELECT * FROM ". T_INFLUENCER_RANKING ." where user_id = '{$user_id}' and vote_type = '{$vote_type}' and soft_delete = {$soft_delete} ORDER BY id DESC");
     if (mysqli_num_rows($query)) {
         while ($fetched_data = mysqli_fetch_assoc($query)) {
             $data[] = $fetched_data;
@@ -1447,16 +1580,19 @@ function GetAllArtistGenre()
     if ($wo['loggedin'] == false) {
         return false;
     }
-    $query = mysqli_query($sqlConnect, "SELECT * FROM " . T_GENRE . " where status = 1 ORDER BY name");
+    $query = mysqli_query($sqlConnect, "SELECT * FROM " . T_GENRE . " where status = 1 ORDER BY type, name");
 
     if (mysqli_num_rows($query)) {
+        $template_type = '';
         $array = [];
         while ($fetched_data = mysqli_fetch_assoc($query)) {
-            $array[] = $fetched_data;
+            if ($fetched_data['type'] != $template_type) {
+                $template_type = $fetched_data['type'];
+            }
+            $array[$template_type][] = $fetched_data;
         }
         return $array;
     }
-    return false;
 }
 
 function GetInfluencerCategoryListingByCategory($category, $platform)
@@ -1632,7 +1768,7 @@ function GetInfluencerRankingInfo($array, $artist_id, $user_id)
                     <div class="curr-ranking">
                         <label>
                             <a href="javascript:;">
-                                Your Ranking: '. GetUserLastRankToArtist($user_id, $artist_id) .'
+                                Your Ranking: '. GetUserLastRankToInfluencer($user_id, $artist_id) .'
                             </a>
                         </label>
                     </div>';
@@ -1681,13 +1817,16 @@ function GetInfluencerCategoryTotalPoints($array_artist)
 function GetArtistVotedListing($array_artist, $user_id)
 {
     foreach($array_artist as $pos => $cat_list){
+        $artists_vote = Wo_GetArtistsFromRankings($array_artist[$pos]['page_id']);
         $pos++;
-         if ($cat_list['voted_user'] == $user_id && $cat_list['soft_delete'] == 0) {
-            $html .= "<a href='".$wo['site_url'] . '/artist/rank?id=' . $cat_list['page_id']."'>
-                        $pos) <b>".$cat_list['name']."</b>
+        foreach($artists_vote as $artist_vote) {
+            if ($artist_vote['user_id'] == $user_id && $cat_list['soft_delete'] == 0) {
+                $html .= "<a href='" . $wo['site_url'] . '/artist/rank?id=' . $cat_list['page_id'] . "'>
+                        $pos) <b>" . $cat_list['name'] . "</b>
                     </a>";
-         } else{
-         }
+            } else {
+            }
+        }
     }
     if(empty($html)){
         $html = '<b>You have not yet voted in this category</b>';
@@ -1698,13 +1837,17 @@ function GetArtistVotedListing($array_artist, $user_id)
 function GetInfluencerVotedListing($array_artist, $user_id)
 {
     foreach($array_artist as $pos => $cat_list){
+        $influencers_vote = Wo_GetInfluencersFromRankings($array_artist[$pos]['page_id']);
         $pos++;
-         if ($cat_list['voted_user'] == $user_id && $cat_list['soft_delete'] == 0) {
-            $html .= "<a href='".$wo['site_url'] . '/influencer/rank?id=' . $cat_list['page_id']."'>
+        foreach($influencers_vote as $influencer_vote){
+            if ($influencer_vote['user_id'] == $user_id && $cat_list['soft_delete'] == 0) {
+                $html .= "<a href='".$wo['site_url'] . '/influencer/rank?id=' . $cat_list['page_id']."'>
                         $pos) <b>".$cat_list['name']."</b>
                     </a>";
-         } else{
-         }
+            } else{
+            }
+        }
+
     }
     if(empty($html)){
         $html = '<b>You have not yet voted in this category</b>';
@@ -1722,6 +1865,40 @@ function GetArtistPercentage($total_points, $artist_points)
     return $percentage;
 }
 
+//function GetInfluencerCategoryListing()
+//{
+//    global $wo, $sqlConnect;
+//    $data = array();
+//    if ($wo['loggedin'] == false) {
+//        return false;
+//    }
+//
+//    $query = mysqli_query($sqlConnect, "SELECT ip.*,tc.id as temp_id,
+//                                               tc.name as cat_name,
+//                                               tc.template_type as templat_type,
+//                                               ir.user_id as voted_user,
+//                                                ir.soft_delete
+//                                                from ".T_INFLUNCER_PAGES." as ip
+//                                                JOIN template_categories tc on tc.id = ip.influencer_category
+//                                                LEFT JOIN influencer_ranking ir on ir.influencer_id = ip.page_id
+//                                                where tc.status = 1;");
+//    if (mysqli_num_rows($query)) {
+//        $cat_name = '';
+//        $array = [];
+//        $voted_user = [];
+//        while ($fetched_data = mysqli_fetch_assoc($query)) {
+//            if ($fetched_data['cat_name'] != $cat_name) {
+//                $cat_name = $fetched_data['cat_name'];
+//            }
+//            $voted_user[] = $fetched_data['voted_user'];
+//            $array[$cat_name][] = $fetched_data;
+//            $array[$cat_name]['voted_users'][] = $voted_user;
+//        }
+//    }
+//
+//    return $array;
+//}
+
 function GetInfluencerCategoryListing()
 {
     global $wo, $sqlConnect;
@@ -1729,21 +1906,23 @@ function GetInfluencerCategoryListing()
     if ($wo['loggedin'] == false) {
         return false;
     }
-    $query = mysqli_query($sqlConnect, "SELECT ip.*,tc.id as temp_id,
+
+    $query = mysqli_query($sqlConnect,  "SELECT ip.*,tc.id as temp_id,
                                                tc.name as cat_name,
                                                tc.template_type as templat_type,
                                                ir.user_id as voted_user,
                                                 ir.soft_delete,
                                                 ifnull(SUM(ir.influencer_points),0) as influencer_old_points,
                                                 CASt(SUM(CASE WHEN ir.soft_delete = 0 then ir.influencer_points else 0 end) as DECIMAL(10,2)) as influencer_actual_points
-                                                from ".T_INFLUNCER_PAGES." as ip                                      
+                                                from ".T_INFLUNCER_PAGES." as ip
                                                 JOIN template_categories tc on tc.id = ip.influencer_category
-                                                left JOIN influencer_ranking ir on ir.influencer_id = ip.page_id
+                                                LEFT JOIN influencer_ranking ir on ir.influencer_id = ip.page_id
                                                 where tc.status = 1
                                                 group by ip.page_id order by influencer_actual_points DESC;");
     if (mysqli_num_rows($query)) {
         $cat_name = '';
         $array = [];
+        $voted_user = [];
         while ($fetched_data = mysqli_fetch_assoc($query)) {
             if ($fetched_data['cat_name'] != $cat_name) {
                 $cat_name = $fetched_data['cat_name'];
@@ -1751,6 +1930,7 @@ function GetInfluencerCategoryListing()
             $array[$cat_name][] = $fetched_data;
         }
     }
+
     return $array;
 }
 
@@ -6282,6 +6462,19 @@ function Wo_GetUserIds()
     return $data;
 }
 
+function CustomAdminNotification($data = array())
+{
+    global $sqlConnect, $wo;
+    if ($wo['loggedin'] == false) {
+        return false;
+    }
+    $sql = "INSERT INTO " . T_NOTIFICATION . " (`notifier_id`,`recipient_id`,`type`,`text`,`full_link`,`time`,`admin`, `url`) 
+            VALUES
+            (1,0,'admin_notification','Alex Parker has requested to change snapshot','http://localhost/anyfans//influencer/rank?id=55','1636717866', 1, 'http://localhost/anyfans//influencer/rank?id=55')";
+    $result = mysqli_query($sqlConnect, $sql);
+    return $result;
+}
+
 function Wo_RegisterAdminNotification($registration_data = array())
 {
     global $sqlConnect, $wo;
@@ -6300,7 +6493,6 @@ function Wo_RegisterAdminNotification($registration_data = array())
     $time = time();
     $sql = "INSERT INTO " . T_NOTIFICATION . " (`notifier_id`,`recipient_id`,`type`,`text`,`full_link`,`time`) VALUES ";
     $val = array();
-
     foreach ($registration_data['recipients'] as $user_id) {
         if ($admin != $user_id) {
             $val[] = "('$admin','$user_id','admin_notification','$text','$link','$time')";

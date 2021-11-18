@@ -482,6 +482,7 @@
                 background-color: transparent !important;
                 background: url("./themes/fanzoodle/img/welcome-bg.jpg") no-repeat;
                 background-size: cover;
+                height: 100vh;
             }
 
             .wo_regi_features:before {
@@ -744,9 +745,11 @@ if ($wo['page'] == 'welcome') {
     </div>
     <div class="extra">
         <?php
-        if ($wo['loggedin'] == true && $wo['page'] != 'maintenance' && $wo['page'] !== 'artist_listing' && $wo['page'] !== 'category_listing') {
+//        if ($wo['loggedin'] == true && $wo['page'] != 'maintenance' && $wo['page'] !== 'artist_listing' && $wo['page'] !== 'category_listing') {
+        if ($wo['loggedin'] == true && $wo['page'] != 'maintenance') {
             if ($wo['config']['chatSystem'] == 1 && $wo['page'] != 'get_news_feed' && $wo['page'] != 'sharer' && $wo['page'] != 'video-api' && $wo['page'] != 'messages') {
-                echo Wo_LoadPage('chat/content');
+//                echo Wo_LoadPage('chat/content');
+                echo Wo_LoadPage('rank-sidebar/content');
             }
             echo Wo_LoadPage('modals/logged-out');
             ?>

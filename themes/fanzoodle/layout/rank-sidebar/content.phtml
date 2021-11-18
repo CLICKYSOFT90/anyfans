@@ -1,24 +1,29 @@
+<?php
+$wo['category_listing'] = GetAllCategoryListing();
+$wo['artist_genre'] = GetAllArtistGenre();
+?>
 <div class="chat-all-container">
     <div class="chat-tab"></div>
     <div class="chat-container full">
         <div class="cat-listing">
             <h3><b><i>Rank your favorites in these categories!</i></b></h3>
-            <p style="font-size: 10px;">The categories below are not live<br>
-                but sample categories. Those live<br>
-                are featured in the middle column<br>
+            <p style="font-size: 10px;">The categories below are not live
+                but sample categories. Those live
+                are featured in the middle column
                 as examples.
             </p>
             <h4>Global Rankings</h4>
             <div class="">
                 <ul class="cat-parent">
+                    <?php foreach($wo['artist_genre'] as $type => $artist_genres){ ?>
                     <li>
                         <div>
-                            <a href="<?php echo $wo['site_url'] . '/artist' ?>">Artist</a>
-                            <i class="fa fa-chevron-down pull-right slide-cat" data-class=".artist"></i>
+                            <a href="<?php echo $wo['site_url'] . '/artist' ?>"><?php echo ucwords($type) ?></a>
+                            <i class="fa fa-chevron-down pull-right slide-cat" data-class=".<?php echo str_replace('/', '-', $type) ?>"></i>
                         </div>
-                        <div class="artist" style="display: none;">
+                        <div class="<?php echo str_replace('/', '-', $type) ?>" style="display: block;">
                             <ul class="cat-child">
-                                <?php foreach ($wo['artist_genre'] as $genre_list) { ?>
+                                <?php foreach ($artist_genres as $genre_list) { ?>
                                     <li>
                                         <a href="<?php echo $wo['site_url'] . '/artist/category/list/' . $genre_list['slug'] ?>"><?php echo ucfirst($genre_list['name']) ?></a>
                                     </li>
@@ -26,13 +31,14 @@
                             </ul>
                         </div>
                     </li>
+                    <?php } ?>
                     <?php foreach ($wo['category_listing'] as $key => $cat_listing) { ?>
                         <li>
                             <div>
                                 <a href="<?php echo $wo['site_url'] . '/' . $key ?>"><?php echo ucwords(str_replace('-', ' ',$key)) ?></a>
                                 <i class="fa fa-chevron-down pull-right slide-cat" data-class=".<?php echo $key ?>"></i>
                             </div>
-                            <div class="<?php echo $key ?>" style="display: none;">
+                            <div class="<?php echo $key ?>" style="display: block;">
                                 <ul class="cat-child">
                                     <?php foreach ($cat_listing as $cat_list) { ?>
                                         <li>

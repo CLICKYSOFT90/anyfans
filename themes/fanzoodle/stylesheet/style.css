@@ -356,9 +356,16 @@ textarea.postText{border:none;padding-top:12px;padding-left:50px;height:45px;box
 .invite-user-form button svg {height:16px;width:16px}
 
 .left-sidebar ul{padding-left:0!important}
-.left-sidebar ul li a{border-radius:2px;padding:3px;display:block;margin:5px 0;line-height:25px;transition:all .2s ease}
+.left-sidebar ul li a{border-radius:2px;padding:3px;display:flex;margin:5px 0;line-height:25px;transition:all .2s ease;font-size: 12px;}
+.left-sidebar ul li a img{
+    margin-right: 10px;
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+    margin-top: 2px;
+}
 .left-sidebar ul li a:hover{background:rgba(0, 0, 0, 0.03)}
-.left-sidebar ul li a svg{margin-right:10px;height:20px;width:20px;vertical-align:middle;margin-top:-3px}
+.left-sidebar ul li a svg{margin-right:10px;height:20px;width:20px;vertical-align:middle;margin-top:2px}
 .left-sidebar li a .sidebar-icon{width:20px;margin-right:7px}
 .left-sidebar .trending{background:0 0;margin-top:30px;box-shadow:none}
 .left-sidebar .sidebar .sidebar-title-back{padding-left:0;line-height:30px;background:0 0}
@@ -1734,7 +1741,7 @@ input.search-for-posts{margin:0!important;border:0!important}
 .loading-icon.lightbox-content{font-size:70px;color:#fff;margin-top:20%;text-align:center}
 .btn-main.MS-File{padding:14px;margin-right:-1px;border-radius:0!important}
 .profile-lists .setting-well{padding-top:0}
-.sidebar>.list-group a{white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis;display:inline-block}
+.sidebar>.list-group a{white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis;display:inline-block}
 .sidebar .sidebar-title-back{display:block;overflow:hidden;padding:0 15px;line-height:39px;font-size:13px;color:#444;font-weight:600;background:#fff}
 .sidebar .sidebar-title-back svg{height:18px;width:18px;vertical-align:middle;margin:-3px 10px 0 0}
 .manage-users .admin-static:nth-child(1){border-top-left-radius:3px}
@@ -3659,7 +3666,7 @@ svg {vertical-align: middle;}
 .wow_side_loggd_usr {margin-bottom: 15px;padding: 13px;font-family: "Roboto", sans-serif;}
 .wow_side_loggd_usr_cvr {margin: -13px -13px 13px;border-radius: 4px 4px 0 0;overflow: hidden;}
 .wow_side_loggd_usr_cvr img {width: 100%;height: 100px;object-fit: cover;}
-.wow_side_loggd_usr_hdr {position: relative;margin-bottom: 15px;}
+.wow_side_loggd_usr_hdr {position: relative;margin-bottom: 0px;}
 .wow_side_loggd_usr_hdr .avatar {width: 70px;height: 70px;margin: -50px auto 13px;}
 .wow_side_loggd_usr_hdr .avatar img {border-radius: 50%;width: 100%;height: 100%;box-shadow: 0 5px 10px rgba(0,0,0,.2);}
 .wow_side_loggd_usr_hdr .title {text-align: center;}
@@ -4776,12 +4783,12 @@ ul.thumb-Images li {
 .cat-listing .cat-parent{
     padding: 0 0 0 17px;
     list-style: unset;
-    font-size: 18px;
+    font-size: 16px;
 }
 .cat-listing .cat-child{
     padding: 0 0 0 15px;
     list-style: unset;
-    font-size: 14px;
+    font-size: 12px;
 }
 .cat-parent li a,
 .cat-child li a{
@@ -4901,3 +4908,16 @@ ul.thumb-Images li {
     margin-bottom: 0px;
 }
 
+.custom-input{
+    width: 51px;
+    height: 23px;
+    padding: 2px 5px;
+    font-size: 10px;
+}
+
+.color-green{
+    color: #03b100;
+}
+.color-yellow {
+    color: #dceb00;
+}

@@ -9,12 +9,15 @@ $wo['influncer_info'] = Wo_GetInfluencer($id);
 $wo['influencer_comments'] = Wo_GetTemplateComments($id, 'influencer');
 $wo['top_artist'] = Wo_GetTopInfluencer($wo['influncer_info']['influencer_category'], 3);
 $wo['ranking_info'] = Wo_GetInfluencerRankings($wo['influncer_info']['influencer_category'], 0);
-$wo['user_voted'] = Wo_UserVotedInfluencer($wo['user']['user_id'], $wo['influncer_info']['page_id'],0);
+//$wo['user_voted'] = Wo_UserVotedInfluencer($wo['user']['user_id'], $wo['influncer_info']['page_id'],0);
+//$wo['user_voted_category'] = Wo_UserVotedInfluencerCategory($wo['user']['user_id'], $wo['influncer_info']['influencer_category'],0);
+$wo['user_voted_category'] = Wo_UserHasVotedInfluencer($wo['user']['user_id'], 0,0);
+
 //dd($wo['ranking_info'] );
-if (empty($wo['user_voted'])) {
+if (empty($wo['user_voted_category'])) {
     // User has not voted for this artist
     $wo['vote'] = 0;
-} else if ($wo['user_voted'][0]['vote_type'] == 0 || $wo['user_voted'][0]['vote_type'] == 1) {
+} else if ($wo['user_voted_category'][0]['vote_type'] == 0 || $wo['user_voted_category'][0]['vote_type'] == 1) {
     // User has voted for this artist
     $user_package = GetUserPackageLogs($wo['user']['user_id']);
     if ($user_package && $user_package[0]['expired_at'] > date('Y-m-d')) {

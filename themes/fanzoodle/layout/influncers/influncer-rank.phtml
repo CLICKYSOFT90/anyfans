@@ -112,6 +112,8 @@
                     <img src="<?php echo $wo['site_url'].'/upload/influnecer_page/snapshot/'.$wo['influncer_info']['snapshot']?>" class="img-responsive">
                     <div class="">
                     <label style="font-size: 10px;">Image Date: <?php echo date('m-d-Y',strtotime($wo['influncer_info']['snapshot_date']))?></label>
+
+<!--                    <label><a href="javascript:;" onclick="SendNotificationAdmin(--><?php //echo $wo['influncer_info']['page_id'] ?> <!--  )" style="font-size: 10px;">Request a new profile screenshot</a> </label>-->
                     <label><a href="javascript:;" style="font-size: 10px;">Request a new profile screenshot</a> </label>
                     </div>
                 </div>
@@ -126,8 +128,7 @@
                         <?php } else { ?>
                             <a href="javascript:;" class="purchase-package">
                                 <u>Add your favorite photo of the artist</u>, or a photo with
-                                you
-                                or of you with their album!
+                                you or of you with their album!
                             </a>
                             <button type="button" class="btn-vote btn-color-blue open-upload-modal pull-right">
                                 Upload File
@@ -471,6 +472,25 @@
 </div>
 
 <script>
+
+    function SendNotificationAdmin($influencer_id){
+        $.ajax({
+            type: "POST",
+            url: Wo_Ajax_Requests_File() + "?f=admin_setting&s=send_notification",
+            data: {id: $influencer_id},
+            success: function (data) {
+                if (data.status == 200) {
+                    $('.post-commet-textarea .comment-textarea').val(" ");
+                    $('.comment-append').append(data.data);
+                } else {
+                    $('.response_message').empty();
+                    $('.response_message').append(data.message);
+                    $('#vote-now').modal('show');
+                }
+            }
+        });
+    }
+
     $(document).on('click', '.read-more', function (){
         $('.info-box2').find('.min-text').removeClass('min-text');
         $(this).text('Read Less').removeClass('read-more').addClass('read-less');

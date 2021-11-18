@@ -11,8 +11,9 @@
             </div>
             <div class="login_left_combo">
                 <div class="fadeInUp animated animated_9">
-                    <h1><?php echo $wo['lang']['welcome_'] ?></h1>
-                    <p><?php echo $wo['lang']['welcome_share_text'] ?></p>
+                    <h1><i><?php echo $wo['lang']['welcome_'] ?></i></h1>
+<!--                    <p>--><?php //echo $wo['lang']['welcome_share_text'] ?><!--</p>-->
+                    <p><i>Rank your favorites and see what’s new with influencers, artists and our themed content editors!</i></p>
                     <?php if ($wo['config']['facebookLogin'] != 0 ||
                         $wo['config']['googleLogin'] != 0 ||
                         $wo['config']['twitterLogin'] != 0 ||
@@ -71,8 +72,10 @@
                         <br>
                         <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
                     <?php endif; ?>
+
                 </div>
             </div>
+
         </div>
         <?php
         $user_info = Wo_GetUserFromID($_GET['id']);

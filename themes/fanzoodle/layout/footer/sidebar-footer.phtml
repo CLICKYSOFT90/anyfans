@@ -28,7 +28,7 @@
 					<ul class="dropdown-menu dropdown-menu-right" role="menu">
 						<li><a data-ajax="?link1=terms&type=privacy-policy" href="<?php echo Wo_SeoLink('index.php?link1=terms&type=privacy-policy');?>"><?php echo $wo['lang']['privacy_policy'];?></a></li>
 						<li><a data-ajax="?link1=terms&type=terms" href="<?php echo Wo_SeoLink('index.php?link1=terms&type=terms');?>"><?php echo $wo['lang']['terms_of_use'];?></a></li>
-						<?php if ($wo['config']['refund_system'] == 'on') { ?>
+					 	<?php if ($wo['config']['refund_system'] == 'on') { ?>
 							<li><a data-ajax="?link1=terms&type=refund" href="<?php echo Wo_SeoLink('index.php?link1=terms&type=refund');?>"><?php echo $wo['lang']['request_refund'];?></a></li>
 						<?php } ?>
 						<?php
@@ -42,8 +42,8 @@
 				</div>
 			</li> 
 		</ul>
-		<div class="text-center" style="margin-top: 10px">
-            POWERED BY <a href="https://clickysoft.com/">CLICKYSOFT</a>
+		<div class="text-center" style="margin-top: 10px; display: none;">
+            POWERED BY <a href="https://clickysoft.com/" target="_blank">CLICKYSOFT</a>
         </p>
 	</div>
 </div>

@@ -10,26 +10,28 @@
                 <a href="<?php echo $wo['config']['site_url']; ?>" data-ajax="?index.php?link1=home">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="#047cac" d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"/>
-                    </svg> <?php echo $wo['lang']['news_feed']; ?>
+                    </svg>
+<!--                    --><?php //echo $wo['lang']['news_feed']; ?>
+                    Influencers Only Feed
                 </a>
-                <?php if ($wo['page'] == 'home') { ?>
-                    <?php if ($wo['config']['order_posts_by'] == 0) { ?>
-                        <div class="dropdown order_by">
-                            <svg class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                 xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M7,10L12,15L17,10H7Z" opacity="0.7"/>
-                            </svg>
-                            <ul class="dropdown-menu dropdown-menu-right" role="button">
-                                <li class="order_all <?php echo ($wo['user']['order_posts_by'] == 0) ? 'active' : ''; ?>">
-                                    <a href="javascript:void(0);"
-                                       onclick="Wo_StorePosts(0);"><?php echo $wo['lang']['all'] ?></a></li>
-                                <li class="order_people <?php echo ($wo['user']['order_posts_by'] == 1) ? 'active' : ''; ?>">
-                                    <a href="javascript:void(0);"
-                                       onclick="Wo_StorePosts(1);"><?php echo $wo['lang']['people_i_follow'] ?></a></li>
-                            </ul>
-                        </div>
-                    <?php } ?>
-                <?php } ?>
+<!--                --><?php //if ($wo['page'] == 'home') { ?>
+<!--                    --><?php //if ($wo['config']['order_posts_by'] == 0) { ?>
+<!--                        <div class="dropdown order_by">-->
+<!--                            <svg class="dropdown-toggle" data-toggle="dropdown" role="button"-->
+<!--                                 xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">-->
+<!--                                <path fill="currentColor" d="M7,10L12,15L17,10H7Z" opacity="0.7"/>-->
+<!--                            </svg>-->
+<!--                            <ul class="dropdown-menu dropdown-menu-right" role="button">-->
+<!--                                <li class="order_all --><?php //echo ($wo['user']['order_posts_by'] == 0) ? 'active' : ''; ?><!--">-->
+<!--                                    <a href="javascript:void(0);"-->
+<!--                                       onclick="Wo_StorePosts(0);">--><?php //echo $wo['lang']['all'] ?><!--</a></li>-->
+<!--                                <li class="order_people --><?php //echo ($wo['user']['order_posts_by'] == 1) ? 'active' : ''; ?><!--">-->
+<!--                                    <a href="javascript:void(0);"-->
+<!--                                       onclick="Wo_StorePosts(1);">--><?php //echo $wo['lang']['people_i_follow'] ?><!--</a></li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    --><?php //} ?>
+<!--                --><?php //} ?>
             </li>
             <li class="wow_side_post_fltr">
                 <a href="javascript:;">
@@ -216,78 +218,148 @@ c7.303,0,13.244,5.941,13.244,13.244S354.988,438,347.685,438H279.244z"/>
             <li>
                 <a href="javascript:;">
                     <img src="<?php echo $wo['config']['theme_url'].'/img/conversation.png' ?>">
-                    AnyFans Conversations
+                    AnyFans Live
                 </a>
             </li>
             <li>
                 <a href="javascript:;">
                     <img src="<?php echo $wo['config']['theme_url'].'/img/chat.png' ?>">
-                    Themed Chats
+                    Themed Hangouts
                 </a>
             </li>
-            <li>
+            <li class="wow_side_post_fltr">
                 <a href="javascript:;">
-                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
-                     Beauty
+                    <img src="<?php echo $wo['config']['theme_url'].'/img/themes.png' ?>">
+                    Themes
                 </a>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <div class="">
-                        <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
-                    </div>
-                    <div class="">
-                        College Campus Corner
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
-                    Crypto Corner
-                </a>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
-                    Destinations & Travel
-                </a>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
-                    Fantasy Sports
-                </a>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
-                    Fitness & Gym Life
-                </a>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
-                    Greek Life
-                </a>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
-                    Influencers Corner
-                </a>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
-                    Style & Fashion
-                </a>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <img src="<?php echo $wo['config']['theme_url'].'/img/blank.png' ?>">
-                    Social Media
-                </a>
+                <div class="dropdown order_by">
+                    <svg class="dropdown-toggle" data-toggle="dropdown" role="button"
+                         xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M7,10L12,15L17,10H7Z" opacity="0.7"/>
+                    </svg>
+                    <ul class="dropdown-menu dropdown-menu-right" role="button">
+                        <li>
+                            <a href="javascript:;">
+                                <div class="">
+<!--                                    <img src="--><?php //echo $wo['config']['theme_url'].'/img/blank.png' ?><!--">-->
+                                </div>
+                                <div class="">
+                                    AnyFans Daily
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <div class="">
+<!--                                    <img src="--><?php //echo $wo['config']['theme_url'].'/img/blank.png' ?><!--">-->
+                                </div>
+                                <div class="">
+                                    Beauty
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <div class="">
+<!--                                    <img src="--><?php //echo $wo['config']['theme_url'].'/img/blank.png' ?><!--">-->
+                                </div>
+                                <div class="">
+                                    Campus Corner
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <div class="">
+<!--                                    <img src="--><?php //echo $wo['config']['theme_url'].'/img/blank.png' ?><!--">-->
+                                </div>
+                                <div class="">
+                                    Country AF
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <div class="">
+<!--                                    <img src="--><?php //echo $wo['config']['theme_url'].'/img/blank.png' ?><!--">-->
+                                </div>
+                                <div class="">
+                                    Crypto Chat
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <div class="">
+<!--                                    <img src="--><?php //echo $wo['config']['theme_url'].'/img/blank.png' ?><!--">-->
+                                </div>
+                                <div class="">
+                                    Faith
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <div class="">
+<!--                                    <img src="--><?php //echo $wo['config']['theme_url'].'/img/blank.png' ?><!--">-->
+                                </div>
+                                <div class="">
+                                    Gamers Only
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <div class="">
+<!--                                    <img src="--><?php //echo $wo['config']['theme_url'].'/img/blank.png' ?><!--">-->
+                                </div>
+                                <div class="">
+                                    Gym Life
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <div class="">
+<!--                                    <img src="--><?php //echo $wo['config']['theme_url'].'/img/blank.png' ?><!--">-->
+                                </div>
+                                <div class="">
+                                    The HotBox
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <div class="">
+<!--                                    <img src="--><?php //echo $wo['config']['theme_url'].'/img/blank.png' ?><!--">-->
+                                </div>
+                                <div class="">
+                                    Shamelessly Single
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <div class="">
+<!--                                    <img src="--><?php //echo $wo['config']['theme_url'].'/img/blank.png' ?><!--">-->
+                                </div>
+                                <div class="">
+                                    Sports, Fantasy & Betting
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                <div class="">
+<!--                                    <img src="--><?php //echo $wo['config']['theme_url'].'/img/blank.png' ?><!--">-->
+                                </div>
+                                <div class="">
+                                    Style & Fashion
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
         </ul>
     </div>

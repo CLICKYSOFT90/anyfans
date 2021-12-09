@@ -1558,7 +1558,7 @@ function GetAllCategoryListing()
     if ($wo['loggedin'] == false) {
         return false;
     }
-    $query = mysqli_query($sqlConnect, "SELECT * FROM " . T_TEMPLATE_CATEGORY . " where template_type != 'artist' and status = 1 ORDER BY template_type");
+    $query = mysqli_query($sqlConnect, "SELECT * FROM " . T_TEMPLATE_CATEGORY . " where template_type != 'artist' and status = 1 ORDER BY template_type, sort_by DESC");
 
     if (mysqli_num_rows($query)) {
         $template_type = '';
